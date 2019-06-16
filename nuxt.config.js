@@ -34,6 +34,14 @@ module.exports = {
         })
       }
     }
+  },
+  modules: [
+    '@nuxtjs/style-resources'
+  ],
+  styleResources: {
+    scss: [
+      'assets/scss/_variable.scss',
+      'assets/scss/_mixin.scss'
+    ]
   }
 }
-
