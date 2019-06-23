@@ -1,15 +1,18 @@
 <template>
   <div class="header">
-    <signup/>
+    <signup
+    :is-signup="isSignup"
+    @close-signup-modal="closeSignupModal"
+    />
     <div class="header-inner">
       <nuxt-link class="logo" to="/">
         <!-- <n-logo/> -->
         <!-- <img src="~static/logo_nav.png" alt="Nuxt"/> -->
+        CASTON
       </nuxt-link>
       <div class="menu">
         <div
         v-if="isMobile"
-        @click="toggle"
         class="sp-menu"
         >
           <!-- <div :class="{'icon menu': !visible, 'icon close': visible}"></div> -->
@@ -28,10 +31,10 @@
           </ul>
           <ul>
             <li>
-              <nuxt-link to="/about">ログイン</nuxt-link>
+              <a href="" @click.prevent="openSignupModal">ログイン</a>
             </li>
             <li>
-              <nuxt-link to="/signup">新規登録</nuxt-link>
+              <a href="" @click.prevent="openSignupModal">新規登録</a>
             </li>
           </ul>
         </div>
@@ -46,22 +49,22 @@ import Signup from '~/components/Signup.vue'
 export default {
   data() {
     return {
-      isMobile: false
+      isMobile: false,
+      isSignup: false
     }
   },
   components: {
     Signup,
   },
   methods: {
-    toggle() {
-      this.$store.commit('toggle', 'visibleHeader')
+    openSignupModal() {
+      this.isSignup = true
     },
-    showLogos() {
-      this.$router.push('/logos')
+    closeSignupModal() {
+      this.isSignup = false
     }
   },
   computed: {
-    // visible() { return this.$store.state.visibleHeader }
   },
 }
 </script>
@@ -76,10 +79,14 @@ export default {
     justify-content: space-between;
     margin: 0 auto;
     max-width: 1200px;
+    padding: 10px 20px;
   }
 
   .logo {
-
+    color: $black-color;
+    font-size: 24px;
+    font-weight: bolder;
+    text-decoration: none;
   }
 
   .menu {
@@ -104,7 +111,7 @@ export default {
     }
 
     a {
-      color: $gray-color;
+      color: $black-color;
       text-decoration: none;
     }
   }

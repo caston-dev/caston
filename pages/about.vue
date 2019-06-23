@@ -1,0 +1,16 @@
+<template>
+  <div class="about">
+
+  </div>
+</template>
+
+<script>
+export default {
+}
+</script>
+
+<style lang="scss">
+.about {
+  background-color: $white-color;
+}
+</style>

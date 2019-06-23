@@ -15,6 +15,7 @@ export default {
 </script>
 <style lang="scss">
 body {
+  font-family: 'Noto Sans', sans-serif;
   margin: 0;
   padding: 0;
 }

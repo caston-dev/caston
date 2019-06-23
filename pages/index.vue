@@ -1,13 +1,5 @@
 <template>
   <div class="index">
-    <div class="index-head">
-    </div>
-    <div class="index-about">
-
-    </div>
-    <div class="index-strength">
-
-    </div>
   </div>
 </template>
 
@@ -21,7 +13,7 @@ export default {
 }
 
 .index-head {
-  background: $theme-color;
+  background: $white-color;
   height: 100vh;
   width: 100vw;
 }
