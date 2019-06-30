@@ -72,7 +72,7 @@ export default {
           path: '/profile',
           query: {
             new: isNewUser
-          }
+          },
         })
       }).catch(function(error) {
         var errorCode = error.code
@@ -134,14 +134,14 @@ export default {
 }
 
 .modal-container {
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
+  font-family: Helvetica, Arial, sans-serif;
+  transition: all .3s ease;
+  text-align: center;
   margin: 0px auto;
   width: 400px;
-  background-color: #fff;
-  border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
-  transition: all .3s ease;
-  font-family: Helvetica, Arial, sans-serif;
-  text-align: center;
 }
 
 .modal-header {

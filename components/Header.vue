@@ -30,10 +30,10 @@
             </li>
           </ul>
           <ul>
-            <li>
+            <li v-if="!isLoggedIn">
               <a href="" @click.prevent="openSignupModal">ログイン</a>
             </li>
-            <li>
+            <li v-if="!isLoggedIn">
               <a href="" @click.prevent="openSignupModal">新規登録</a>
             </li>
           </ul>
@@ -44,13 +44,14 @@
 </template>
 
 <script>
-import Signup from '~/components/Signup.vue'
+import Signup from '~/components/Signup'
 
 export default {
   data() {
     return {
       isMobile: false,
-      isSignup: false
+      isSignup: false,
+      isLoggedIn: false
     }
   },
   components: {
@@ -66,6 +67,8 @@ export default {
   },
   computed: {
   },
+  created() {
+  }
 }
 </script>
 

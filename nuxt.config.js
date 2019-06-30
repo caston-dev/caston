@@ -37,7 +37,8 @@ module.exports = {
   },
   modules: [
     '@nuxtjs/style-resources',
-    'nuxt-webfontloader'
+    'nuxt-webfontloader',
+    'nuxt-fontawesome',
   ],
   styleResources: {
     scss: [
@@ -50,4 +51,15 @@ module.exports = {
       families: ['Noto+Sans']
     }
   },
+  plugins: [
+    { src: "~plugins/persistedstate.js", ssr: false }
+  ],
+  fontawesome: {
+    imports: [
+      {
+        set: '@fortawesome/free-solid-svg-icons',
+        icons: ['fas']
+      }
+    ]
+  }
 }
