@@ -1,6 +1,6 @@
 <template>
   <div class="profile">
-    <status v-show="isNew"></status>
+    <!-- <walkthrough v-show="isNew"></walkthrough> -->
     <div class="profile-inner">
       <div class="profile-card">
         <div class="profile-image">
@@ -19,25 +19,26 @@
           <div class="profile-body-item">
             <div class="profile-body-item-head">
               <h3>出身</h3>
-              <a href="#">
+              <a href="#" @click.prevent="form.birthPlace = !form.birthPlace">
                 <font-awesome-icon icon="edit"></font-awesome-icon>編集する
               </a>
             </div>
-
-            <a href="#">
-              <p>{{ profile.birthPlace }}</p>
-            </a>
+            <b-field v-if="form.birthPlace">
+              <b-input v-model="profile.birthPlace"></b-input>
+            </b-field>
+            <p v-else>{{ profile.birthPlace }}</p>
           </div>
           <div class="profile-body-item">
             <div class="profile-body-item-head">
               <h3>現在住んでいる地域</h3>
-              <a href="#">
+              <a href="#" @click.prevent="form.livingPlace = !form.livingPlace">
                 <font-awesome-icon icon="edit"></font-awesome-icon>編集する
               </a>
             </div>
-            <a href="#">
-              <p>{{ profile.livingPlace }}</p>
-            </a>
+            <b-field v-if="form.livingPlace">
+              <b-input v-model="profile.livingPlace"></b-input>
+            </b-field>
+            <p v-else>{{ profile.livingPlace }}</p>
           </div>
           <div class="profile-body-item">
             <div class="profile-body-item-head">
@@ -96,15 +97,22 @@
 </template>
 
 <script>
+import { mapGetters, mapState } from 'vuex'
 import Status from '~/components/StatusCard.vue'
+import Walkthrough from '~/components/Walkthrough.vue'
 
 export default {
   components: {
-    Status,
+    Walkthrough
   },
   data() {
     return {
       isNew: false,
+      form: {
+        name: false,
+        birthPlace: false,
+        livingPlace: false
+      },
       profile: {
         name: 'お名前',
         birthPlace: '出身地',
@@ -133,6 +141,9 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapGetters(['isAuthenticated'])
+  },
   created() {
     if (this.$route.query.new === 'true') {
       this.isNew = true
@@ -144,8 +155,7 @@ export default {
 <style lang="scss">
 
 .profile {
-  background: $theme-color;
-  height: 100%;
+  background: $light-gray-color;
 }
 
 .profile-inner {
@@ -155,6 +165,7 @@ export default {
 .profile-card {
   background-color: $white-color;
   border-radius: 20px;
+  box-shadow: 4px 4px 8px $light-gray-color;
   margin: 0 auto;
   width: 35%;
 
@@ -192,6 +203,7 @@ export default {
     .profile-name {
 
       h2 {
+        font-size: 18px;
         font-weight: bold;
         margin: 0;
       }
@@ -218,6 +230,7 @@ export default {
 
         h3 {
           font-size: 18px;
+          font-weight: 600;
         }
 
         a {
@@ -230,14 +243,11 @@ export default {
         }
       }
 
-      a {
-        text-decoration: none;
+      p {
         color: $gray-color;
-
-        p {
-          font-size: 16px;
-          opacity: .5;
-        }
+        font-size: 16px;
+        margin: 15px 0 0;
+        opacity: .5;
       }
     }
   }
@@ -251,6 +261,7 @@ export default {
       border-radius: 5px;
       color: $white-color;
       font-size: 18px;
+      font-weight: bold;
       margin: 30px auto 0;
       padding: 15px 30px;
       text-decoration: none;

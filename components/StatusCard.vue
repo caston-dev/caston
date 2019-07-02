@@ -51,7 +51,7 @@ export default {
 }
 
 .status-card-inner {
-  background-color: #fff;
+  background-color: $white-color;
   left: 50%;
   padding: 40px;
   position: absolute;

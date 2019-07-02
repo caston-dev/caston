@@ -7,7 +7,7 @@
     <div class="header-inner">
       <nuxt-link class="logo" to="/">
         <!-- <n-logo/> -->
-        <!-- <img src="~static/logo_nav.png" alt="Nuxt"/> -->
+        <img src="~static/images/logo-icon.png" alt="Nuxt"/>
         CASTON
       </nuxt-link>
       <div class="menu">
@@ -30,11 +30,14 @@
             </li>
           </ul>
           <ul>
-            <li v-if="!isLoggedIn">
+            <li v-if="!isAuthenticated">
               <a href="" @click.prevent="openSignupModal">ログイン</a>
             </li>
-            <li v-if="!isLoggedIn">
+            <li v-if="!isAuthenticated">
               <a href="" @click.prevent="openSignupModal">新規登録</a>
+            </li>
+            <li v-if="isAuthenticated">
+              <a href="" @click.prevent="openLogoutModal">ログアウト</a>
             </li>
           </ul>
         </div>
@@ -44,6 +47,7 @@
 </template>
 
 <script>
+import { mapGetters, mapState } from 'vuex'
 import Signup from '~/components/Signup'
 
 export default {
@@ -51,6 +55,7 @@ export default {
     return {
       isMobile: false,
       isSignup: false,
+      isLogout: false,
       isLoggedIn: false
     }
   },
@@ -63,9 +68,13 @@ export default {
     },
     closeSignupModal() {
       this.isSignup = false
+    },
+    openLogoutModal() {
+      this.isLogout = false
     }
   },
   computed: {
+    ...mapGetters(['isAuthenticated'])
   },
   created() {
   }
@@ -82,14 +91,22 @@ export default {
     justify-content: space-between;
     margin: 0 auto;
     max-width: 1200px;
-    padding: 10px 20px;
-  }
+    padding: 20px 20px;
 
-  .logo {
-    color: $black-color;
-    font-size: 24px;
-    font-weight: bolder;
-    text-decoration: none;
+    .logo {
+      align-items: center;
+      color: $white-color;
+      display: flex;
+      font-size: 20px;
+      font-weight: bolder;
+      text-decoration: none;
+
+      img {
+        height: 20px;
+        margin: 0 6px 0 0;
+        width: 20px;
+      }
+    }
   }
 
   .menu {
@@ -114,7 +131,7 @@ export default {
     }
 
     a {
-      color: $black-color;
+      color: $white-color;
       text-decoration: none;
     }
   }

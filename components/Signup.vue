@@ -49,6 +49,7 @@
 </template>
 <script>
 import firebase from '~/plugins/firebase'
+import { mapActions, mapState, mapGetters } from 'vuex'
 
 export default {
   props: {
@@ -62,6 +63,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['setUser']),
     signup(service) {
       let provider = this.choseProvider(service)
       firebase.auth().signInWithPopup(provider).then((result) => {
@@ -102,8 +104,17 @@ export default {
       this.$emit('close-signup-modal')
     }
   },
+  computed: {
+    ...mapState(['user']),
+    ...mapGetters(['isAuthenticated'])
+  },
   created() {
     this.isOpen = this.isSignup
+  },
+  mounted() {
+    firebase.auth().onAuthStateChanged((user) => {
+      this.setUser(user)
+    })
   },
   watch: {
     isSignup: {
