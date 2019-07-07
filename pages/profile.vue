@@ -24,16 +24,18 @@
                 <font-awesome-icon icon="edit"></font-awesome-icon>編集する
               </a>
             </div>
-            <b-field v-if="form.birthPlace">
-              <b-input v-model="profile.birthPlace"></b-input>
-            </b-field>
-            <p v-else>{{ profile.birthPlace }}</p>
-            <div
-            class="form-button"
-            v-show="form.birthPlace"
-            >
-              <button @click.prevent="onClickCancelButton('birthPlace')">キャンセル</button>
-              <button @click="onClickSaveButton('birthPlace')">保存</button>
+            <div class="profile-body-item-body">
+              <b-field v-if="form.birthPlace">
+                <b-input v-model="profile.birthPlace"></b-input>
+              </b-field>
+              <p v-else>{{ profile.birthPlace }}</p>
+              <div
+              class="form-button"
+              v-show="form.birthPlace"
+              >
+                <button @click.prevent="onClickCancelButton('birthPlace')">キャンセル</button>
+                <button @click="onClickSaveButton('birthPlace')">保存</button>
+              </div>
             </div>
           </div>
 
@@ -44,18 +46,21 @@
                 <font-awesome-icon icon="edit"></font-awesome-icon>編集する
               </a>
             </div>
-            <b-field v-if="form.livingPlace">
-              <b-input v-model="profile.livingPlace"></b-input>
-            </b-field>
-            <p v-else>{{ profile.livingPlace }}</p>
-            <div
-            class="form-button"
-            v-show="form.livingPlace"
-            >
-              <button @click.prevent="onClickCancelButton('livingPlace')">キャンセル</button>
-              <button @click="onClickSaveButton('livingPlace')">保存</button>
+            <div class="profile-body-item-body">
+              <b-field v-if="form.livingPlace">
+                <b-input v-model="profile.livingPlace"></b-input>
+              </b-field>
+              <p v-else>{{ profile.livingPlace }}</p>
+              <div
+              class="form-button"
+              v-show="form.livingPlace"
+              >
+                <button @click.prevent="onClickCancelButton('livingPlace')">キャンセル</button>
+                <button @click="onClickSaveButton('livingPlace')">保存</button>
+              </div>
             </div>
           </div>
+
           <div class="profile-body-item">
             <div class="profile-body-item-head">
               <h3>経歴</h3>
@@ -63,24 +68,27 @@
                 <font-awesome-icon icon="edit"></font-awesome-icon>編集する
               </a>
             </div>
-            <ul v-for="career in profile.careers" :key="career.title">
-              <li v-if="form.careers">
-                <b-field>
-                  <b-input v-model="career.title"></b-input>
-                </b-field>
-              </li>
-              <li v-else>
-                <p>{{ career.title }}</p>
-              </li>
-            </ul>
-            <div
-            class="form-button"
-            v-show="form.careers"
-            >
-              <button @click.prevent="onClickCancelButton('careers')">キャンセル</button>
-              <button @click="onClickSaveButton('careers')">保存</button>
+            <div class="profile-body-item-body">
+              <ul v-for="career in profile.careers" :key="career.title">
+                <li v-if="form.careers">
+                  <b-field>
+                    <b-input v-model="career.title"></b-input>
+                  </b-field>
+                </li>
+                <li v-else>
+                  <p>{{ career.title }}</p>
+                </li>
+              </ul>
+              <div
+              class="form-button"
+              v-show="form.careers"
+              >
+                <button @click.prevent="onClickCancelButton('careers')">キャンセル</button>
+                <button @click="onClickSaveButton('careers')">保存</button>
+              </div>
             </div>
           </div>
+
           <div class="profile-body-item">
             <div class="profile-body-item-head">
               <h3>出演作品</h3>
@@ -88,24 +96,27 @@
                 <font-awesome-icon icon="edit"></font-awesome-icon>編集する
               </a>
             </div>
-            <ul v-for="appearance in profile.appearances" :key="appearance.title">
-              <li v-if="form.appearances">
-                <b-field>
-                  <b-input v-model="appearance.title"></b-input>
-                </b-field>
-              </li>
-              <li v-else>
-                <p>{{ appearance.title }}</p>
-              </li>
-            </ul>
-            <div
-            class="form-button"
-            v-show="form.appearances"
-            >
-              <button @click.prevent="onClickCancelButton('appearances')">キャンセル</button>
-              <button @click="onClickSaveButton('appearances')">保存</button>
+            <div class="profile-body-item-body">
+              <ul v-for="appearance in profile.appearances" :key="appearance.title">
+                <li v-if="form.appearances">
+                  <b-field>
+                    <b-input v-model="appearance.title"></b-input>
+                  </b-field>
+                </li>
+                <li v-else>
+                  <p>{{ appearance.title }}</p>
+                </li>
+              </ul>
+              <div
+              class="form-button"
+              v-show="form.appearances"
+              >
+                <button @click.prevent="onClickCancelButton('appearances')">キャンセル</button>
+                <button @click="onClickSaveButton('appearances')">保存</button>
+              </div>
             </div>
           </div>
+
           <div class="profile-body-item">
             <div class="profile-body-item-head">
               <h3>資格・特技</h3>
@@ -113,24 +124,27 @@
                 <font-awesome-icon icon="edit"></font-awesome-icon>編集する
               </a>
             </div>
-            <ul v-for="certification in profile.certifications" :key="certification.title">
-              <li v-if="form.certifications">
-                <b-field>
-                  <b-input v-model="certification.title"></b-input>
-                </b-field>
-              </li>
-              <li v-else>
-                <p>{{ certification.title }}</p>
-              </li>
-            </ul>
-            <div
-            class="form-button"
-            v-show="form.certifications"
-            >
-              <button @click.prevent="onClickCancelButton('certifications')">キャンセル</button>
-              <button @click="onClickSaveButton('certifications')">保存</button>
+            <div class="profile-body-item-body">
+              <ul v-for="certification in profile.certifications" :key="certification.title">
+                <li v-if="form.certifications">
+                  <b-field>
+                    <b-input v-model="certification.title"></b-input>
+                  </b-field>
+                </li>
+                <li v-else>
+                  <p>{{ certification.title }}</p>
+                </li>
+              </ul>
+              <div
+              class="form-button"
+              v-show="form.certifications"
+              >
+                <button @click.prevent="onClickCancelButton('certifications')">キャンセル</button>
+                <button @click="onClickSaveButton('certifications')">保存</button>
+              </div>
             </div>
           </div>
+
           <div class="profile-body-item">
             <div class="profile-body-item-head">
               <h3>好きな映画や演劇</h3>
@@ -138,37 +152,43 @@
                 <font-awesome-icon icon="edit"></font-awesome-icon>編集する
               </a>
             </div>
-            <ul v-for="favorite in profile.favorites" :key="favorite.title">
-              <li v-if="form.favorites">
-                <b-field>
-                  <b-input v-model="favorite.title"></b-input>
-                </b-field>
-              </li>
-              <li v-else>
-                <p>{{ favorite.title }}</p>
-              </li>
-            </ul>
-            <div
-            class="form-button"
-            v-show="form.favorites"
-            >
-              <button @click.prevent="onClickCancelButton('favorites')">キャンセル</button>
-              <button @click="onClickSaveButton('favorites')">保存</button>
+            <div class="profile-body-item-body">
+              <ul v-for="favorite in profile.favorites" :key="favorite.title">
+                <li v-if="form.favorites">
+                  <b-field>
+                    <b-input v-model="favorite.title"></b-input>
+                  </b-field>
+                </li>
+                <li v-else>
+                  <p>{{ favorite.title }}</p>
+                </li>
+              </ul>
+              <div
+              class="form-button"
+              v-show="form.favorites"
+              >
+                <button @click.prevent="onClickCancelButton('favorites')">キャンセル</button>
+                <button @click="onClickSaveButton('favorites')">保存</button>
+              </div>
             </div>
           </div>
+
         </div>
+
         <!-- もしログインユーザーとプロフィールのユーザーが同一ではない場合 -->
         <div class="profile-message-button">
           <a href="#">
             メッセージを送る
           </a>
         </div>
+        
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import firebase from 'firebase'
 import { mapGetters, mapState } from 'vuex'
 import Status from '~/components/StatusCard.vue'
 import Walkthrough from '~/components/Walkthrough.vue'
@@ -295,7 +315,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
 .profile {
   background: $light-gray-color;
@@ -414,6 +434,14 @@ export default {
       text-decoration: none;
       width: 80%;
     }
+  }
+
+  /* Animation */
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+  }
+  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
   }
 }
 </style>

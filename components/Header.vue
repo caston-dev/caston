@@ -4,6 +4,10 @@
     :is-signup="isSignup"
     @close-signup-modal="closeSignupModal"
     />
+    <logout
+    :is-logout="isLogout"
+    @close-logout-modal="closeLogoutModal"
+    />
     <div class="header-inner">
       <nuxt-link class="logo" to="/">
         <!-- <n-logo/> -->
@@ -49,6 +53,7 @@
 <script>
 import { mapGetters, mapState } from 'vuex'
 import Signup from '~/components/Signup'
+import Logout from '~/components/Logout'
 
 export default {
   data() {
@@ -61,6 +66,7 @@ export default {
   },
   components: {
     Signup,
+    Logout
   },
   methods: {
     openSignupModal() {
@@ -70,8 +76,11 @@ export default {
       this.isSignup = false
     },
     openLogoutModal() {
+      this.isLogout = true
+    },
+    closeLogoutModal() {
       this.isLogout = false
-    }
+    },
   },
   computed: {
     ...mapGetters(['isAuthenticated'])
