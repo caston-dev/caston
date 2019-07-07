@@ -157,7 +157,10 @@ export default {
 
 .modal-header {
   background-color: $theme-color;
+  color: $white-color;
   font-size: 18px;
+  font-weight: bold;
+  letter-spacing: .1em;
   padding: 20px 40px;
 }
 

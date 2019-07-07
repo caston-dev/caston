@@ -16,6 +16,7 @@
           </div>
         </div>
         <div class="profile-body">
+
           <div class="profile-body-item">
             <div class="profile-body-item-head">
               <h3>出身</h3>
@@ -27,7 +28,15 @@
               <b-input v-model="profile.birthPlace"></b-input>
             </b-field>
             <p v-else>{{ profile.birthPlace }}</p>
+            <div
+            class="form-button"
+            v-show="form.birthPlace"
+            >
+              <button @click.prevent="onClickCancelButton('birthPlace')">キャンセル</button>
+              <button @click="onClickSaveButton('birthPlace')">保存</button>
+            </div>
           </div>
+
           <div class="profile-body-item">
             <div class="profile-body-item-head">
               <h3>現在住んでいる地域</h3>
@@ -39,50 +48,113 @@
               <b-input v-model="profile.livingPlace"></b-input>
             </b-field>
             <p v-else>{{ profile.livingPlace }}</p>
+            <div
+            class="form-button"
+            v-show="form.livingPlace"
+            >
+              <button @click.prevent="onClickCancelButton('livingPlace')">キャンセル</button>
+              <button @click="onClickSaveButton('livingPlace')">保存</button>
+            </div>
           </div>
           <div class="profile-body-item">
             <div class="profile-body-item-head">
               <h3>経歴</h3>
-              <a href="#">
+              <a href="#" @click.prevent="form.careers = !form.careers">
                 <font-awesome-icon icon="edit"></font-awesome-icon>編集する
               </a>
             </div>
-            <a v-for="career in profile.careers"  href="#" :key="career.title">
-              <p>{{ career.title }}</p>
-            </a>
+            <ul v-for="career in profile.careers" :key="career.title">
+              <li v-if="form.careers">
+                <b-field>
+                  <b-input v-model="career.title"></b-input>
+                </b-field>
+              </li>
+              <li v-else>
+                <p>{{ career.title }}</p>
+              </li>
+            </ul>
+            <div
+            class="form-button"
+            v-show="form.careers"
+            >
+              <button @click.prevent="onClickCancelButton('careers')">キャンセル</button>
+              <button @click="onClickSaveButton('careers')">保存</button>
+            </div>
           </div>
           <div class="profile-body-item">
             <div class="profile-body-item-head">
               <h3>出演作品</h3>
-              <a href="#">
+              <a href="#" @click.prevent="form.appearances = !form.appearances">
                 <font-awesome-icon icon="edit"></font-awesome-icon>編集する
               </a>
             </div>
-            <a v-for="appearance in profile.appearances" href="#" :key="appearance.title">
-              <p>{{ appearance.title }}</p>
-            </a>
+            <ul v-for="appearance in profile.appearances" :key="appearance.title">
+              <li v-if="form.appearances">
+                <b-field>
+                  <b-input v-model="appearance.title"></b-input>
+                </b-field>
+              </li>
+              <li v-else>
+                <p>{{ appearance.title }}</p>
+              </li>
+            </ul>
+            <div
+            class="form-button"
+            v-show="form.appearances"
+            >
+              <button @click.prevent="onClickCancelButton('appearances')">キャンセル</button>
+              <button @click="onClickSaveButton('appearances')">保存</button>
+            </div>
           </div>
           <div class="profile-body-item">
             <div class="profile-body-item-head">
               <h3>資格・特技</h3>
-              <a href="#">
+              <a href="#" @click.prevent="form.certifications = !form.certifications">
                 <font-awesome-icon icon="edit"></font-awesome-icon>編集する
               </a>
             </div>
-            <a v-for="certification in profile.certifications"  href="#" :key="certification.title">
-              <p>{{ certification.title }}</p>
-            </a>
+            <ul v-for="certification in profile.certifications" :key="certification.title">
+              <li v-if="form.certifications">
+                <b-field>
+                  <b-input v-model="certification.title"></b-input>
+                </b-field>
+              </li>
+              <li v-else>
+                <p>{{ certification.title }}</p>
+              </li>
+            </ul>
+            <div
+            class="form-button"
+            v-show="form.certifications"
+            >
+              <button @click.prevent="onClickCancelButton('certifications')">キャンセル</button>
+              <button @click="onClickSaveButton('certifications')">保存</button>
+            </div>
           </div>
           <div class="profile-body-item">
             <div class="profile-body-item-head">
               <h3>好きな映画や演劇</h3>
-              <a href="#">
+              <a href="#" @click.prevent="form.favorites = !form.favorites">
                 <font-awesome-icon icon="edit"></font-awesome-icon>編集する
               </a>
             </div>
-            <a v-for="favorite in profile.favorites" href="#" :key="favorite">
-              <p>{{ favorite }}</p>
-            </a>
+            <ul v-for="favorite in profile.favorites" :key="favorite.title">
+              <li v-if="form.favorites">
+                <b-field>
+                  <b-input v-model="favorite.title"></b-input>
+                </b-field>
+              </li>
+              <li v-else>
+                <p>{{ favorite.title }}</p>
+              </li>
+            </ul>
+            <div
+            class="form-button"
+            v-show="form.favorites"
+            >
+              <button @click.prevent="onClickCancelButton('favorites')">キャンセル</button>
+              <button @click="onClickSaveButton('favorites')">保存</button>
+            </div>
           </div>
         </div>
         <!-- もしログインユーザーとプロフィールのユーザーが同一ではない場合 -->
@@ -111,7 +183,11 @@ export default {
       form: {
         name: false,
         birthPlace: false,
-        livingPlace: false
+        livingPlace: false,
+        careers: false,
+        appearances: false,
+        certifications: false,
+        favorites: false
       },
       profile: {
         name: 'お名前',
@@ -119,25 +195,92 @@ export default {
         livingPlace: '現在住んでいる地域',
         careers: [
           {
-            title: '経歴のタイトル',
+            title: '経歴のタイトル１',
+            body: '経歴の内容'
+          },
+          {
+            title: '経歴のタイトル２',
+            body: '経歴の内容'
+          },
+          {
+            title: '経歴のタイトル３',
             body: '経歴の内容'
           }
         ],
         appearances: [
           {
-            title: '出演作',
+            title: '出演作１',
+            role: '役'
+          },
+          {
+            title: '出演作２',
+            role: '役'
+          },
+          {
+            title: '出演作３',
+            role: '役'
+          },
+          {
+            title: '出演作４',
             role: '役'
           }
         ],
         certifications: [
           {
-            title: '資格名',
+            title: '資格名１',
+            acquisitionDate: '1993/12/31'
+          },
+          {
+            title: '資格名２',
             acquisitionDate: '1993/12/31'
           }
         ],
         favorites: [
-          'ダイハード'
+          {
+            title: 'ダイハード１'
+          },
+          {
+            title: 'ダイハード２'
+          },
+          {
+            title: 'ダイハード３'
+          },
         ]
+      }
+    }
+  },
+  methods: {
+    onClickCancelButton(key) {
+      switch (key) {
+        case 'birthPlace':
+          this.form.birthPlace = false
+          break;
+        case 'careers':
+          this.form.careers = false
+          break;
+        case 'livingPlace':
+          this.form.livingPlace = false
+          break;
+        case 'appearances':
+          this.form.appearances = false
+          break;
+        case 'certifications':
+          this.form.certifications = false
+          break;
+        case 'favorites':
+          this.form.favorites = false
+          break;
+        default:
+          break;
+      }
+    },
+    onClickSaveButton(key) {
+      switch (key) {
+        case 'birthPlace':
+
+          break;
+        default:
+
       }
     }
   },
@@ -241,6 +384,10 @@ export default {
             margin: 0 2px 0 0;
           }
         }
+      }
+
+      .field {
+        margin: 10px 0;
       }
 
       p {
