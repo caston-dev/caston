@@ -67,26 +67,15 @@ export default {
     signup(service) {
       let provider = this.choseProvider(service)
       firebase.auth().signInWithPopup(provider).then((result) => {
-        var token = result.credential.accessToken
         var user = result.user
         var isNewUser = result.additionalUserInfo.isNewUser
-        console.log(user)
         if (isNewUser) {
-          // もし初回登録のユーザーの場合、Realtime Databaseにレコードを作成する
-
+          this.writeUserData(user, isNewUser)
+        } else {
+          this.moveToProfile(isNewUser)
         }
-        // this.$router.push({
-        //   path: '/profile',
-        //   query: {
-        //     new: isNewUser
-        //   },
-        // })
-      }).catch(function(error) {
-        var errorCode = error.code
-        var errorMessage = error.message
-        var email = error.email
-        var credential = error.credential
-        // ...
+      }).catch((err) => {
+        alert(err.message)
       });
     },
     choseProvider(service) {
@@ -104,6 +93,26 @@ export default {
         default:
           break;
       }
+    },
+    writeUserData(user, isNewUser) {
+      firebase.database().ref('users/' + user.uid).set({
+        userName: user.displayName,
+        email: user.email
+      }, (err) => {
+        if (err) {
+          alert(err)
+        } else {
+          this.moveToProfile(isNewUser)
+        }
+      })
+    },
+    moveToProfile(isNew) {
+      this.$router.push({
+        path: '/profile',
+        query: {
+          new: isNew
+        },
+      })
     },
     closeModal() {
       this.$emit('close-signup-modal')
