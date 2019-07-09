@@ -72,7 +72,7 @@ export default {
         if (isNewUser) {
           this.writeUserData(user, isNewUser)
         } else {
-          this.moveToProfile(isNewUser)
+          this.moveToProfile(user.uid, isNewUser)
         }
       }).catch((err) => {
         alert(err.message)
@@ -102,14 +102,15 @@ export default {
         if (err) {
           alert(err)
         } else {
-          this.moveToProfile(isNewUser)
+          this.moveToProfile(user.uid, isNewUser)
         }
       })
     },
-    moveToProfile(isNew) {
+    moveToProfile(userId, isNew) {
       this.$router.push({
         path: '/profile',
         query: {
+          id: userId,
           new: isNew
         },
       })
