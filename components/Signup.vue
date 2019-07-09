@@ -70,12 +70,17 @@ export default {
         var token = result.credential.accessToken
         var user = result.user
         var isNewUser = result.additionalUserInfo.isNewUser
-        this.$router.push({
-          path: '/profile',
-          query: {
-            new: isNewUser
-          },
-        })
+        console.log(user)
+        if (isNewUser) {
+          // もし初回登録のユーザーの場合、Realtime Databaseにレコードを作成する
+
+        }
+        // this.$router.push({
+        //   path: '/profile',
+        //   query: {
+        //     new: isNewUser
+        //   },
+        // })
       }).catch(function(error) {
         var errorCode = error.code
         var errorMessage = error.message

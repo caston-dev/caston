@@ -52,7 +52,16 @@ export default {
   methods: {
     ...mapActions(['setUser']),
     logout() {
-
+      this.$emit('close-logout-modal')
+      firebase.auth().signOut().then(() => {
+        this.setUser(null)
+        this.$router.push({
+          path: '/'
+        })
+      }).catch((err) => {
+        // An error happened.
+        alert(err)
+      });
     },
     cancel() {
       this.$emit('close-logout-modal')
