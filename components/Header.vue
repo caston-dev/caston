@@ -10,7 +10,6 @@
     />
     <div class="header-inner">
       <nuxt-link class="logo" to="/">
-        <!-- <n-logo/> -->
         <img src="~static/images/logo-icon.png" alt="Nuxt"/>
         CASTON
       </nuxt-link>

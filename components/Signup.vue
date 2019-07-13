@@ -4,7 +4,10 @@
     v-show="isOpen"
     class="signup"
     >
-      <div class="modal-mask" @click="closeModal">
+      <div
+      class="modal-mask"
+      @click="closeModal"
+      >
         <div class="modal-wrapper">
           <div class="modal-container">
 
@@ -134,7 +137,7 @@ export default {
   watch: {
     isSignup: {
       immediate: true,
-      handler () {
+      handler() {
         this.isOpen = this.isSignup
       }
     }
@@ -163,7 +166,6 @@ export default {
   background-color: #fff;
   border-radius: 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
-  font-family: Helvetica, Arial, sans-serif;
   transition: all .3s ease;
   text-align: center;
   margin: 0px auto;
@@ -222,15 +224,6 @@ export default {
 .modal-default-button {
   float: right;
 }
-
-/*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
 
 .modal-enter {
   opacity: 0;
