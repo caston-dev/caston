@@ -26,19 +26,14 @@
         >
           <ul>
             <li>
-              <nuxt-link to="/">トップ</nuxt-link>
-            </li>
-            <li>
               <nuxt-link to="/about">CASTONとは？</nuxt-link>
             </li>
-          </ul>
-          <ul>
             <li v-if="!isAuthenticated">
               <a href="" @click.prevent="openSignupModal">ログイン</a>
             </li>
-            <li v-if="!isAuthenticated">
+            <!-- <li v-if="!isAuthenticated">
               <a href="" @click.prevent="openSignupModal">新規登録</a>
-            </li>
+            </li> -->
             <li v-if="isAuthenticated">
               <a href="" @click.prevent="openLogoutModal">ログアウト</a>
             </li>
@@ -92,14 +87,17 @@ export default {
 <style lang="scss">
 .header {
   background-color: $theme-color;
+  position: fixed;
+  width: 100vw;
+  z-index: 2;
 
   .header-inner {
     align-items: center;
     display: flex;
+    height: 80px;
     justify-content: space-between;
     margin: 0 auto;
-    max-width: 1200px;
-    padding: 20px 20px;
+    max-width: 1080px;
 
     .logo {
       align-items: center;

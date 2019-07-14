@@ -3,7 +3,7 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: 'act',
+    title: 'CASTON | クリエイターと俳優のマッチングサービス',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -39,7 +39,6 @@ module.exports = {
     '@nuxtjs/style-resources',
     'nuxt-webfontloader',
     'nuxt-fontawesome',
-    'nuxt-buefy'
   ],
   styleResources: {
     scss: [
@@ -53,7 +52,8 @@ module.exports = {
     }
   },
   plugins: [
-    { src: "~plugins/persistedstate.js", ssr: false }
+    { src: "~plugins/persistedstate.js", ssr: false },
+    '~/plugins/scroll'
   ],
   fontawesome: {
     imports: [

@@ -164,7 +164,6 @@ export default {
 
 .modal-container {
   background-color: #fff;
-  border-radius: 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
   transition: all .3s ease;
   text-align: center;
@@ -173,12 +172,11 @@ export default {
 }
 
 .modal-header {
-  background-color: $theme-color;
-  color: $white-color;
-  font-size: 18px;
+  color: $black-color;
+  font-size: 20px;
   font-weight: bold;
   letter-spacing: .1em;
-  padding: 20px 40px;
+  padding: 40px 0 0;
 }
 
 .modal-body {
