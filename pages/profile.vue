@@ -1,11 +1,6 @@
 <template>
   <div class="profile">
     <!-- <walkthrough v-show="isNew"></walkthrough> -->
-    <ProfileEditModal
-    v-show="isEditProfile"
-    :is-edit-profile="isEditProfile"
-    @close-profile-edit-modal="closeProfileEditModal"
-    />
     <div class="profile-inner">
       <div class="profile-card">
         <div class="profile-image">
@@ -17,11 +12,6 @@
           v-else
           src="~static/images/profile-icon.png"
           alt="プロフィール画像"
-          />
-        </div>
-        <div class="profile-edit-button">
-          <ProfileEditButton
-          @open-profile-edit-modal="openProfileEditModal"
           />
         </div>
         <div class="profile-head">
@@ -37,8 +27,11 @@
             />
           </div>
           <div class="profile-name">
-            <h2>{{ profile.name }}</h2>
-            <p>{{ profile.name }}</p>
+            <h2>{{ profile.userName }}</h2>
+            <p>{{ profile.userName }}</p>
+          </div>
+          <div class="profile-social-links">
+
           </div>
         </div>
 
@@ -116,12 +109,6 @@
 
         </div>
 
-        <!-- もしログインユーザーとプロフィールのユーザーが同一ではない場合 -->
-        <!-- <div class="profile-message-button">
-          <a href="#">
-            メッセージを送る
-          </a>
-        </div> -->
 
       </div>
     </div>
@@ -133,14 +120,10 @@ import firebase from 'firebase'
 import { mapGetters, mapState } from 'vuex'
 import Status from '~/components/StatusCard'
 import Walkthrough from '~/components/Walkthrough'
-import ProfileEditButton from '~/components/ProfileEditButton'
-import ProfileEditModal from '~/components/ProfileEditModal'
 
 export default {
   components: {
     Walkthrough,
-    ProfileEditButton,
-    ProfileEditModal
   },
   data() {
     return {
@@ -148,7 +131,7 @@ export default {
       isNew: false,
       isEditProfile: false,
       profile: {
-        name: 'お名前',
+        userName: '',
         birthPlace: '出身地',
         livingPlace: '現在住んでいる地域',
         careers: [
@@ -221,12 +204,6 @@ export default {
       input.type = 'file'
       this.uploadedImage = ''
     },
-    openProfileEditModal() {
-      this.isEditProfile = true
-    },
-    closeProfileEditModal() {
-      this.isEditProfile = false
-    }
   },
   computed: {
     ...mapState(['user']),
@@ -237,30 +214,37 @@ export default {
     if (this.$route.query.new === 'true') {
       this.isNew = true
     }
+
+    return firebase.database().ref('/users/' + this.$route.query.id).once('value').then((snapshot) => {
+      const user = snapshot.val()
+      if (user) {
+        this.profile.userName = user.userName
+      } else {
+        alert('ユーザーがいません')
+      }
+      this.profile = (snapshot.val() && snapshot.val());
+    });
   },
   mounted() {
     setTimeout(() => {
-      console.log(this.user) // ここだと取得できる
-      // なにかしらの処理
+      console.log(this.user) // mapStateのuser
     })
   }
 }
 </script>
 
 <style lang="scss" scoped>
-
 .profile {
-  background: $light-gray-color;
+  background-color: $white-color;
 }
 
 .profile-inner {
-  padding: 60px 0;
+  padding: 140px 0 60px;
 }
 
 .profile-card {
   background-color: $white-color;
-  border-radius: 20px;
-  box-shadow: 4px 4px 8px $light-gray-color;
+  border-radius: 8px;
   margin: 0 auto;
   width: 560px;
 
@@ -269,7 +253,7 @@ export default {
     width: 100%;
 
     img {
-      border-radius: 20px 20px 0px 0px / 20px 20px 0px 0px;
+      border-radius: 8px 8px 0px 0px / 8px 8px 0px 0px;
       height: 100%;
       object-fit: cover;
       width: 100%;
@@ -297,10 +281,8 @@ export default {
 
   .profile-head {
     align-items: center;
-    border-bottom: 1px solid rgba(50, 49, 48, .1);
-    border-top: 1px solid rgba(50, 49, 48, .1);
     display: flex;
-    padding: 30px 20px;
+    padding: 30px 20px 15px;
 
     .profile-icon {
       height: 60px;
@@ -333,8 +315,7 @@ export default {
   }
 
   .profile-body {
-    border-bottom: 1px solid rgba(50, 49, 48, .1);
-    padding: 20px 20px 0;
+    padding: 0 20px;
 
     .profile-body-item {
       margin: 0 0 40px;
@@ -359,8 +340,11 @@ export default {
         }
       }
 
-      .field {
-        margin: 10px 0;
+      .profile-body-item-body {
+        ul {
+          list-style: none;
+          padding: 0;
+        }
       }
 
       p {
@@ -369,23 +353,6 @@ export default {
         margin: 15px 0 0;
         opacity: .5;
       }
-    }
-  }
-
-  .profile-message-button {
-    padding: 60px 20px 60px;
-    text-align: center;
-
-    a {
-      background-color: $blue-color;
-      border-radius: 5px;
-      color: $white-color;
-      font-size: 18px;
-      font-weight: bold;
-      margin: 30px auto 0;
-      padding: 15px 30px;
-      text-decoration: none;
-      width: 80%;
     }
   }
 

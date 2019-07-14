@@ -8,7 +8,7 @@
             作りたい/撮りたいテーマがあるけど出演者が見つからずに妥協したりあきらめたことはないですか？
           </p>
           <p>
-            CASTONはそんな悩みを解消するクリエイターと俳優のマッチングサービスです。
+            <strong>CASTON</strong>はそんな悩みを解消するクリエイターと俳優のマッチングサービスです。
           </p>
         </div>
         <div class="index-head-image">
@@ -19,8 +19,8 @@
         <nuxt-link
         v-scroll-to="'#tab'"
         to>
-          詳しく見る
-          <img class="bounce" src="~/static/images/arrow-down-icon.png" alt="詳しく見る">
+          scroll
+          <img class="bounce" src="~/static/images/arrow-down-icon.png" alt="scroll">
         </nuxt-link>
       </div>
     </section>
@@ -54,8 +54,8 @@ export default {
     return {
       currentId: 1,
       list: [
-        { id: 1, label: 'クリエイターの方へ', content: 'ここにクリエイターの方のコンテンツがきます' },
-        { id: 2, label: '俳優の方へ', content: 'ここに俳優の方のコンテンツがきます' },
+        { id: 1, label: 'クリエイターの方はこちら', content: 'ここにクリエイターの方のコンテンツがきます' },
+        { id: 2, label: '俳優の方はこちら', content: 'ここに俳優の方のコンテンツがきます' },
       ]
     }
   },
@@ -73,13 +73,21 @@ export default {
   position: relative;
 
   .index-head-inner {
-    align-items: center;
-    display: flex;
     height: 100vh;
-    justify-content: center;
-    max-width: 1080px;
-    margin: 0 auto;
-    width: 100vw;
+
+    @include for-phone-only {
+      display: block;
+      padding: 0 20px;
+    }
+
+    @include for-tablet-portrait-up {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      max-width: 1080px;
+      margin: 0 auto;
+      width: 100vw;
+    }
 
     .index-head-text {
       align-items: flex-start;
@@ -88,20 +96,40 @@ export default {
       justify-content: center;
       flex: 4;
 
+      @include for-phone-only {
+        padding-top: 80px;
+      }
+
       h1 {
         color: $white-color;
-        font-size: 120px;
-        font-weight: bold;
-        margin: 0 0 20px;
+        font-weight: bolder;
+
+        @include for-phone-only {
+          font-size: 64px;
+          
+        }
+
+        @include for-tablet-landscape-up {
+          font-size: 120px;
+          margin: 0 0 20px;
+        }
       }
 
       p {
         color: $white-color;
-        font-size: 20px;
         font-weight: bold;
         letter-spacing: 2.9px;
-        line-height: 1.9em;
-        margin: 0 0 20px;
+        line-height: 2.1em;
+
+        @include for-phone-only {
+          font-size: 16px;
+          margin: 0;
+        }
+
+        @include for-tablet-landscape-up {
+          font-size: 20px;
+          margin: 0 0 20px;
+        }
       }
     }
 
@@ -110,12 +138,20 @@ export default {
 
       img {
         width: 100%;
+
+        @include for-phone-only {
+          display: none;
+        }
+
+        @include for-tablet-landscape-up {
+          display: block;
+        }
       }
     }
   }
 
   .more-button {
-    bottom: 60px;
+    bottom: 5vh;
     position: absolute;
     text-align: center;
     width: 100%;
@@ -151,6 +187,10 @@ export default {
     border-radius: 8px;
     margin: 0 auto;
     max-width: 1080px;
+
+    @include for-phone-only {
+      padding: 0 20px;
+    }
 
     .index-about-tab-items {
       align-items: center;

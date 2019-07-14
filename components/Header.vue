@@ -10,18 +10,18 @@
     />
     <div class="header-inner">
       <nuxt-link class="logo" to="/">
-        <img src="~static/images/logo-icon.png" alt="Nuxt"/>
+        <img src="~static/images/logo-icon.png" alt="CASTON"/>
         CASTON
       </nuxt-link>
       <div class="menu">
         <div
-        v-if="isMobile"
         class="sp-menu"
         >
-          <!-- <div :class="{'icon menu': !visible, 'icon close': visible}"></div> -->
+          <div class="sp-menu-icon">
+            <img src="~static/images/setting-icon.png" alt="メニュー">
+          </div>
         </div>
         <div
-        v-else
         class="pc-menu"
         >
           <ul>
@@ -99,6 +99,11 @@ export default {
     margin: 0 auto;
     max-width: 1080px;
 
+    @include for-phone-only {
+      height: 60px;
+      padding: 0 20px;
+    }
+
     .logo {
       align-items: center;
       color: $white-color;
@@ -107,10 +112,22 @@ export default {
       font-weight: bolder;
       text-decoration: none;
 
+      @include for-phone-only {
+        font-size: 16px;
+      }
+
       img {
-        height: 20px;
         margin: 0 6px 0 0;
-        width: 20px;
+
+        @include for-phone-only {
+          height: 16px;
+          width: 16px;
+        }
+
+        @include for-tablet-portrait-up {
+          height: 20px;
+          width: 20px;
+        }
       }
     }
   }
@@ -124,6 +141,14 @@ export default {
       align-items: center;
       display: flex;
 
+      @include for-phone-only {
+        display: none;
+      }
+
+      @include for-tablet-portrait-up {
+        display: flex;
+      }
+
       ul {
         align-items: center;
         display: flex;
@@ -133,6 +158,26 @@ export default {
 
       li {
         margin: 0 10px;
+      }
+    }
+
+    .sp-menu {
+      @include for-phone-only {
+        display: block;
+      }
+
+      @include for-tablet-portrait-up {
+        display: none;
+      }
+
+      .sp-menu-icon {
+        height: 20px;
+        width: 20px;
+
+        img {
+          height: 100%;
+          width: 100%;
+        }
       }
     }
 

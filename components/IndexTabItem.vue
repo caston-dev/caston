@@ -32,10 +32,9 @@ export default {
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  font-size: 18px;
+  height: 100%;
   justify-content: center;
   opacity: .5;
-  padding: 30px;
   text-align: center;
   transition: .3s;
   width: 100%;
@@ -43,6 +42,15 @@ export default {
   h3 {
     margin: 0;
 
+    @include for-phone-only {
+      font-size: 12px;
+      padding: 20px 0;
+    }
+
+    @include for-tablet-portrait-up {
+      font-size: 18px;
+      padding: 30px 0;
+    }
   }
 }
 .tab-item:hover {

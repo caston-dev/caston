@@ -38,7 +38,7 @@ module.exports = {
   modules: [
     '@nuxtjs/style-resources',
     'nuxt-webfontloader',
-    'nuxt-fontawesome',
+    'nuxt-fontawesome'
   ],
   styleResources: {
     scss: [
