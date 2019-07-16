@@ -4,7 +4,7 @@
     <div class="profile-inner">
       <div class="profile-card">
         <div class="profile-image">
-          <img
+          <!-- <img
           :src="uploadedImage"
           v-if="uploadedImage"
           />
@@ -12,11 +12,11 @@
           v-else
           src="~static/images/profile-icon.png"
           alt="プロフィール画像"
-          />
+          /> -->
         </div>
         <div class="profile-head">
           <div class="profile-icon">
-            <img
+            <!-- <img
             :src="uploadedImage"
             v-if="uploadedImage"
             />
@@ -24,7 +24,7 @@
             v-else
             src="~static/images/profile-icon.png"
             alt="プロフィールアイコン画像"
-            />
+            /> -->
           </div>
           <div class="profile-name">
             <h2>{{ profile.userName }}</h2>

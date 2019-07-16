@@ -152,7 +152,7 @@ export default {
       color: $white-color;
       font-size: 14px;
       letter-spacing: .15em;
-      margin: 10px 0;
+      margin: 10px 15px;
       padding: 15px 10px;
       text-decoration: none;
       width: 45%;
