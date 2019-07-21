@@ -219,8 +219,6 @@ export default {
       const user = snapshot.val()
       if (user) {
         this.profile.userName = user.userName
-      } else {
-        alert('ユーザーがいません')
       }
       this.profile = (snapshot.val() && snapshot.val());
     });
