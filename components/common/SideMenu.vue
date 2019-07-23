@@ -1,5 +1,6 @@
 <template>
-  <div class="about">
+  <div class="side-menu">
+
   </div>
 </template>
 
@@ -8,5 +9,5 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 </style>

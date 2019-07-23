@@ -1,7 +1,11 @@
 <template>
-  <div class="footer">
-
-  </div>
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>
+        <strong>CASTON</strong> by <a href="https://jgthms.com">中野デンキ製作所</a>.
+      </p>
+    </div>
+  </footer>
 </template>
 
 <script>
@@ -10,9 +14,5 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.footer {
-  background: $white-color;
-  height: 200vh;
-}
+<style lang="scss" scoped>
 </style>

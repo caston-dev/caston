@@ -55,12 +55,8 @@ module.exports = {
     { src: "~plugins/persistedstate.js", ssr: false },
     '~/plugins/scroll'
   ],
-  fontawesome: {
-    imports: [
-      {
-        set: '@fortawesome/free-solid-svg-icons',
-        icons: ['fas']
-      }
-    ]
-  }
+  css: [
+    { src: '~assets/scss/_app.scss', lang: 'sass' },
+    { src: 'font-awesome/scss/font-awesome.scss', lang: 'scss' },
+  ],
 }
