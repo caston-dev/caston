@@ -1,112 +1,54 @@
-<!-- <template>
-  <div class="header">
-    <signup
-    :is-signup="isSignup"
-    @close-signup-modal="closeSignupModal"
-    />
-    <logout
-    :is-logout="isLogout"
-    @close-logout-modal="closeLogoutModal"
-    />
-    <div class="header-inner">
-      <nuxt-link class="logo" to="/">
-        <img src="~static/images/logo-icon.png" alt="CASTON"/>
-        CASTON
-      </nuxt-link>
-      <div class="menu">
-        <div
-        class="sp-menu"
-        >
-          <div class="sp-menu-icon">
-            <img src="~static/images/setting-icon.png" alt="メニュー">
-          </div>
-        </div>
-        <div
-        class="pc-menu"
-        >
-          <ul>
-            <li>
-              <nuxt-link to="/about">CASTONとは？</nuxt-link>
-            </li>
-            <li v-if="!isAuthenticated">
-              <a href="" @click.prevent="openSignupModal">ログイン</a>
-            </li>
-            <li v-if="isAuthenticated">
-              <a href="" @click.prevent="openLogoutModal">ログアウト</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</template> -->
-
-
-
-
-
-
-
 <template>
   <nav class="navbar" role="navigation" aria-label="main navigation">
+    <signup :is-signup="isSignup" />
+    <logout :is-logout="isLogout" />
     <div class="navbar-brand">
       <a class="navbar-item" href="https://bulma.io">
         <img src="~static/images/logo-icon.png" alt="CASTON"/>
       </a>
-
-      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <a
+      role="button"
+      class="navbar-burger burger"
+      aria-label="menu"
+      aria-expanded="false"
+      data-target="navbar"
+      @click="isSideMenu = !isSideMenu"
+      >
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
       </a>
     </div>
-
-    <div id="navbarBasicExample" class="navbar-menu">
+    <div id="navbar" class="navbar-menu">
       <div class="navbar-start">
         <a class="navbar-item">
-          Home
+          トップ
         </a>
-
         <a class="navbar-item">
           CASTONとは？
         </a>
-
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link">
-            More
-          </a>
-
-          <div class="navbar-dropdown">
-            <a class="navbar-item">
-              About
-            </a>
-            <a class="navbar-item">
-              Jobs
-            </a>
-            <a class="navbar-item">
-              Contact
-            </a>
-            <hr class="navbar-divider">
-            <a class="navbar-item">
-              Report an issue
-            </a>
-          </div>
-        </div>
       </div>
-
       <div class="navbar-end">
         <div class="navbar-item">
-          <div class="buttons">
-            <a class="button is-primary">
-              <strong>Sign up</strong>
+          <div class="buttons" v-if="!isAuthenticated">
+            <a class="button is-primary" @click.prevent="openSignupModal">
+              <strong>新規登録</strong>
             </a>
-            <a class="button is-light">
-              Log in
+            <a class="button is-light" @click.prevent="openSignupModal">
+              ログイン
+            </a>
+          </div>
+          <div class="buttons" v-if="isAuthenticated">
+            <a class="button is-light" @click.prevent="openLogoutModal">
+              ログアウト
             </a>
           </div>
         </div>
       </div>
     </div>
+    <transition name="menu">
+      <side-menu :is-side-menu="isSideMenu" />
+    </transition>
   </nav>
 </template>
 
@@ -115,14 +57,11 @@ export default {
 }
 </script>
 
-<style lang="css">
-</style>
-
-
 <script>
 import { mapGetters, mapState } from 'vuex'
 import Signup from '~/components/Signup'
 import Logout from '~/components/Logout'
+import SideMenu from '~/components/SideMenu'
 
 export default {
   data() {
@@ -130,12 +69,14 @@ export default {
       isMobile: false,
       isSignup: false,
       isLogout: false,
-      isLoggedIn: false
+      isLoggedIn: false,
+      isSideMenu: false
     }
   },
   components: {
     Signup,
-    Logout
+    Logout,
+    SideMenu
   },
   methods: {
     openSignupModal() {
@@ -150,17 +91,26 @@ export default {
     closeLogoutModal() {
       this.isLogout = false
     },
+    openSideMenu() {
+      this.isSideMenu = true
+    },
+    closeSideMenu() {
+      this.isSideMenu = false
+    }
   },
   computed: {
     ...mapGetters(['isAuthenticated'])
   },
-  created() {
-  }
 }
 </script>
 
 <style lang="scss" scoped>
-.navbar {
-  background-color: $theme-color;
+.menu-enter-active, .menu-leave-active {
+  transform: translate(0px, 0px);
+  transition: transform 225ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+}
+
+.menu-enter, .menu-leave-to {
+  transform: translateX(-100vw) translateX(0px);
 }
 </style>

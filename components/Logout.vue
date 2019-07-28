@@ -1,38 +1,21 @@
 <template>
-  <transition name="modal">
-    <div
-    v-show="isOpen"
-    class="signup"
-    >
-      <div class="modal-mask" @click="cancel">
-        <div class="modal-wrapper">
-          <div class="modal-container">
-            <div class="modal-body">
-              <p>ログアウトしますか？</p>
-              <slot name="body">
-                <div class="buttons">
-                  <a
-                  class="cancel"
-                  @click.prevent="cancel"
-                  href="#"
-                  >
-                    <span>キャンセル</span>
-                  </a>
-                  <a
-                  class="logout"
-                  @click.prevent="logout"
-                  href="#"
-                  >
-                    <span>ログアウト</span>
-                  </a>
-                </div>
-              </slot>
+  <section v-show="isOpen">
+    <b-modal :active.sync="isOpen" has-modal-card>
+      <form action="">
+        <div class="modal-card" style="width: auto">
+          <header class="modal-card-head">
+            <p class="modal-card-title">ログアウトしますか？</p>
+          </header>
+          <section class="modal-card-body">
+            <div class="buttons">
+              <button class="button" type="button" @click="$parent.closeLogoutModal()">キャンセル</button>
+              <button class="button is-primary" @click.prevent="logout">ログアウト</button>
             </div>
-          </div>
+          </section>
         </div>
-      </div>
-    </div>
-  </transition>
+      </form>
+    </b-modal>
+  </section>
 </template>
 <script>
 import firebase from '~/plugins/firebase'
@@ -52,14 +35,14 @@ export default {
   methods: {
     ...mapActions(['setUser']),
     logout() {
-      this.$emit('close-logout-modal')
       firebase.auth().signOut().then(() => {
+        this.$parent.closeLogoutModal()
+        this.$parent.closeSideMenu()
         this.setUser(null)
         this.$router.push({
           path: '/'
         })
       }).catch((err) => {
-        // An error happened.
         alert(err)
       });
     },
@@ -89,5 +72,3 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
-</style>

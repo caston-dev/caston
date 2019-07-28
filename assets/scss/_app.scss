@@ -1,32 +1,29 @@
-@charset 'utf-8';
-
+// Import Bulma's core
+@import '~bulma/sass/utilities/all';
 @import './variable';
 
-// Import a Google Font
-@import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
-
-// Update Bulma's global variables
-$family-sans-serif: "Nunito", sans-serif;
-$grey-dark: $gray-color;
-$grey-light: $light-gray-color;
+// Set your colors
 $primary: $theme-color;
-$link: $theme-color;
-$widescreen-enabled: false;
-$fullhd-enabled: false;
+$primary-invert: findColorInvert($primary);
 
-// Update some of Bulma's component variables
-$body-background-color: $white-color;
-$control-border-width: 2px;
-$input-border-color: transparent;
-$input-shadow: none;
+// Setup $colors to use as bulma classes (e.g. 'is-twitter')
+$colors: (
+    "white": ($white, $black),
+    "black": ($black, $white),
+    "light": ($light, $light-invert),
+    "dark": ($dark, $dark-invert),
+    "primary": ($primary, $primary-invert),
+    "info": ($info, $info-invert),
+    "success": ($success, $success-invert),
+    "warning": ($warning, $warning-invert),
+    "danger": ($danger, $danger-invert),
+);
 
-// Import only what you need from Bulma
-@import '../../node_modules/bulma/sass/utilities/all.sass';
-@import '../../node_modules/bulma/sass/base/all.sass';
-@import '../../node_modules/bulma/sass/elements/button.sass';
-@import '../../node_modules/bulma/sass/elements/container.sass';
-@import '../../node_modules/bulma/sass/elements/title.sass';
-@import '../../node_modules/bulma/sass/form/all.sass';
-@import '../../node_modules/bulma/sass/components/navbar.sass';
-@import '../../node_modules/bulma/sass/layout/hero.sass';
-@import '../../node_modules/bulma/sass/layout/section.sass';
+// Links
+$link: $primary;
+$link-invert: $primary-invert;
+$link-focus-border: $primary;
+
+// Import Bulma and Buefy styles
+@import '~bulma';
+@import '~buefy/src/scss/buefy';

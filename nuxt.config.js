@@ -10,7 +10,8 @@ module.exports = {
       { hid: 'description', name: 'description', content: 'Nuxt.js project' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/images/favicon-100.png' }
+      { rel: 'icon', type: 'image/x-icon', href: '/images/favicon-100.png' },
+      { rel: 'stylesheet', href: '//cdn.materialdesignicons.com/2.0.46/css/materialdesignicons.min.css' }
     ]
   },
   /*
@@ -33,6 +34,14 @@ module.exports = {
           exclude: /(node_modules)/
         })
       }
+    },
+    vendor: [
+      'buefy'
+    ],
+    postcss: {
+      plugins: {
+        'postcss-custom-properties': false
+      }
     }
   },
   modules: [
@@ -53,7 +62,8 @@ module.exports = {
   },
   plugins: [
     { src: "~plugins/persistedstate.js", ssr: false },
-    '~/plugins/scroll'
+    '~/plugins/scroll',
+    '~/plugins/buefy'
   ],
   css: [
     { src: '~assets/scss/_app.scss', lang: 'sass' },

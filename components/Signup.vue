@@ -1,54 +1,41 @@
 <template>
-  <transition name="modal">
-    <div
-    v-show="isOpen"
-    class="signup"
-    >
-      <div
-      class="modal-mask"
-      @click="closeModal"
-      >
-        <div class="modal-wrapper">
-          <div class="modal-container">
-
-            <div class="modal-header">
-              <slot name="header">
-                会員登録
-              </slot>
+  <section>
+    <b-modal :active.sync="isOpen" has-modal-card :can-cancel="false" full-screen>
+      <div class="modal-card" style="width: 100%;">
+        <header class="modal-card-head">
+          <p class="modal-card-title">新規登録</p>
+        </header>
+        <section class="modal-card-body">
+          <slot name="body">
+            <div class="social-button">
+              <a
+              id="facebook"
+              @click.prevent="signup('facebook')"
+              >
+                <span>Facebookで登録する</span>
+              </a>
+              <a
+              id="twitter"
+              @click.prevent="signup('twitter')"
+              >
+                <span>Twitterで登録する</span>
+              </a>
+              <a
+              id="google"
+              @click.prevent="signup('google')"
+              >
+                <span>Googleで登録する</span>
+              </a>
             </div>
-
-            <div class="modal-body">
-              <slot name="body">
-                <div class="social-button">
-                  <a
-                  id="facebook"
-                  @click.prevent="signup('facebook')"
-                  href=""
-                  >
-                    <span>Facebookで登録する</span>
-                  </a>
-                  <a
-                  id="twitter"
-                  @click.prevent="signup('twitter')"
-                  href=""
-                  >
-                    <span>Twitterで登録する</span>
-                  </a>
-                  <a
-                  id="google"
-                  @click.prevent="signup('google')"
-                  href=""
-                  >
-                    <span>Googleで登録する</span>
-                  </a>
-                </div>
-              </slot>
-            </div>
-          </div>
-        </div>
+          </slot>
+        </section>
+        <footer class="modal-card-foot is-centered">
+          <button class="button" type="button" @click="$parent.closeSignupModal()">キャンセル</button>
+          <button class="button is-primary">登録する</button>
+        </footer>
       </div>
-    </div>
-  </transition>
+    </b-modal>
+  </section>
 </template>
 <script>
 import firebase from '~/plugins/firebase'
@@ -70,6 +57,8 @@ export default {
     signup(service) {
       let provider = this.choseProvider(service)
       firebase.auth().signInWithPopup(provider).then((result) => {
+        this.$parent.closeSignupModal()
+        this.$parent.closeSideMenu()
         var user = result.user
         var isNewUser = result.additionalUserInfo.isNewUser
         if (isNewUser) {
@@ -84,14 +73,17 @@ export default {
     choseProvider(service) {
       var provider;
       switch (service) {
-        case 'google':
-          provider = new firebase.auth.GoogleAuthProvider();
+        case 'facebook':
+          provider = new firebase.auth.FacebookAuthProvider();
           return provider
           break;
         case 'twitter':
-          alert('Under construction...')
-          // provider = new firebase.auth.TwitterAuthProvider();
-          // return provider
+          provider = new firebase.auth.TwitterAuthProvider();
+          return provider
+          break;
+        case 'google':
+          provider = new firebase.auth.GoogleAuthProvider();
+          return provider
           break;
         default:
           break;
@@ -134,6 +126,9 @@ export default {
       this.setUser(user)
     })
   },
+  beforeDestroy() {
+    $parent.closeSignupModal()
+  },
   watch: {
     isSignup: {
       immediate: true,
@@ -144,5 +139,3 @@ export default {
   }
 }
 </script>
-<style lang="scss">
-</style>
