@@ -35,9 +35,6 @@ module.exports = {
         })
       }
     },
-    vendor: [
-      'buefy'
-    ],
     postcss: {
       plugins: {
         'postcss-custom-properties': false
