@@ -1,55 +1,61 @@
 <template>
-  <nav class="navbar" role="navigation" aria-label="main navigation">
-    <signup :is-signup="isSignup" />
-    <logout :is-logout="isLogout" />
-    <div class="navbar-brand">
-      <a class="navbar-item" href="https://bulma.io">
-        <img src="~static/images/logo-icon.png" alt="CASTON"/>
-      </a>
-      <a
-      role="button"
-      class="navbar-burger burger"
-      aria-label="menu"
-      aria-expanded="false"
-      data-target="navbar"
-      @click="isSideMenu = !isSideMenu"
-      >
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </a>
-    </div>
-    <div id="navbar" class="navbar-menu">
-      <div class="navbar-start">
-        <a class="navbar-item">
-          トップ
-        </a>
-        <a class="navbar-item">
-          CASTONとは？
-        </a>
-      </div>
-      <div class="navbar-end">
-        <div class="navbar-item">
-          <div class="buttons" v-if="!isAuthenticated">
-            <a class="button is-primary" @click.prevent="openSignupModal">
-              <strong>新規登録</strong>
-            </a>
-            <a class="button is-light" @click.prevent="openSignupModal">
-              ログイン
+    <transition>
+        <nav 
+        class="navbar has-background-primary" 
+        role="navigation" 
+        aria-label="main navigation"
+        >
+          <signup :is-signup="isSignup" />
+          <logout :is-logout="isLogout" />
+          <div class="navbar-brand">
+            <!-- <a class="navbar-item" href="/">
+              <img src="~static/images/logo-icon.png" alt="CASTON"/>
+            </a> -->
+            <a
+            role="button"
+            class="navbar-burger burger has-text-white"
+            aria-label="menu"
+            aria-expanded="false"
+            data-target="navbar"
+            @click="isSideMenu = !isSideMenu"
+            >
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
             </a>
           </div>
-          <div class="buttons" v-if="isAuthenticated">
-            <a class="button is-light" @click.prevent="openLogoutModal">
-              ログアウト
-            </a>
+          <div id="navbar" class="navbar-menu">
+            <div class="navbar-start">
+              <a class="navbar-item has-text-white">
+                ホーム
+              </a>
+              <a class="navbar-item has-text-white">
+                CASTONとは？
+              </a>
+            </div>
+            <div class="navbar-end">
+              <div class="navbar-item">
+                <div class="buttons" v-if="!isAuthenticated">
+                  <a class="button is-primary is-inverted" @click.prevent="openSignupModal">
+                    <strong>新規登録</strong>
+                  </a>
+                  <a class="button is-primary is-inverted is-outlined" @click.prevent="openSignupModal">
+                    ログイン
+                  </a>
+                </div>
+                <div class="buttons" v-if="isAuthenticated">
+                  <a class="button is-primary is-inverted is-outlined" @click.prevent="openLogoutModal">
+                    ログアウト
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
-    <transition name="menu">
-      <side-menu :is-side-menu="isSideMenu" />
+          <transition name="menu">
+            <side-menu :is-side-menu="isSideMenu" />
+          </transition>
+        </nav>
     </transition>
-  </nav>
 </template>
 
 <script>

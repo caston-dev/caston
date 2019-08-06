@@ -1,117 +1,75 @@
 <template>
-  <div class="profile">
-    <!-- <walkthrough v-show="isNew"></walkthrough> -->
-    <div class="profile-inner">
-      <div class="profile-card">
-        <div class="profile-image">
-          <!-- <img
-          :src="uploadedImage"
-          v-if="uploadedImage"
-          />
-          <img
-          v-else
-          src="~static/images/profile-icon.png"
-          alt="プロフィール画像"
-          /> -->
+  <div class="container is-fullhd">
+    <profile-edit-modal :is-active="isProfileEdit" :profile="profile" />
+    <breadcrumbs/>
+    <section class="section">
+      <transition name="fade">
+        <div class="box" style="max-width: 400px; margin: 0 auto; padding: 0;" v-if="isShow">
+          <div class="media">
+            <figure class="image">
+              <img src="https://bulma.io/images/placeholders/480x480.png">
+            </figure>
+          </div>
+          <div class="profile">
+            <div class="profile-item">
+              <h1>{{ this.profile.userName }}</h1>
+            </div>
+            <div class="profile-item profile-button columns is-centered" style="margin: 0;">
+              <div v-if="this.isSelf" class="buttons has-addons is-centered column">
+                <a class="button is-rounded is-info is-fullwidth" @click="openEditModal">プロフィールを編集する</a>
+              </div>
+              <div v-else class="buttons column">
+                <a href="button is-rounded is-info">Follow</a>
+                <a href="button is-rounded is-info">Like</a>
+              </div>
+            </div>
+            <div class="profile-item">
+              <h2>出身地</h2>
+              <p v-if="this.profile.birthPlace">{{ this.profile.birthPlace }}</p>
+              <p v-else>???</p>
+            </div>
+            <div class="profile-item">
+              <h2>現在住んでいる地域</h2>
+              <p v-if="this.profile.livingPlace">{{ this.profile.livingPlace }}</p>
+              <p v-else>???</p>
+            </div>
+            <div class="profile-item">
+              <h2>経歴</h2>
+              <ul>
+                <li v-for="career in this.profile.careers" :key="career.title">
+                  {{ career.title }}
+                </li>
+              </ul>
+            </div>
+            <div class="profile-item">
+              <h2>過去の出演作品</h2>
+              <ul>
+                <li v-for="appearance in this.profile.appearances" :key="appearance.title">
+                  {{ appearance.title }}
+                </li>
+              </ul>
+            </div>
+            <div class="profile-item">
+              <h2>取得した資格</h2>
+              <ul>
+                <li v-for="certification in this.profile.certifications" :key="certification.title">
+                  {{ certification.title }}
+                </li>
+              </ul>
+            </div>
+            <div class="profile-item">
+              <h2>お気に入りの作品</h2>
+              <ul>
+                <li v-for="career in this.profile.careers" :key="career.title">
+                  {{ career.title }}
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
-        <div class="profile-head">
-          <div class="profile-icon">
-            <!-- <img
-            :src="uploadedImage"
-            v-if="uploadedImage"
-            />
-            <img
-            v-else
-            src="~static/images/profile-icon.png"
-            alt="プロフィールアイコン画像"
-            /> -->
-          </div>
-          <div class="profile-name">
-            <h2>{{ profile.userName }}</h2>
-            <p>{{ profile.userName }}</p>
-          </div>
-          <div class="profile-social-links">
-
-          </div>
-        </div>
-
-        <div class="profile-body">
-
-          <div class="profile-body-item">
-            <div class="profile-body-item-head">
-              <h3>出身</h3>
-            </div>
-            <div class="profile-body-item-body">
-              <p>{{ profile.birthPlace }}</p>
-            </div>
-          </div>
-
-          <div class="profile-body-item">
-            <div class="profile-body-item-head">
-              <h3>現在住んでいる地域</h3>
-            </div>
-            <div class="profile-body-item-body">
-              <p>{{ profile.livingPlace }}</p>
-            </div>
-          </div>
-
-          <div class="profile-body-item">
-            <div class="profile-body-item-head">
-              <h3>経歴</h3>
-            </div>
-            <div class="profile-body-item-body">
-              <ul v-for="career in profile.careers" :key="career.title">
-                <li>
-                  <p>{{ career.title }}</p>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="profile-body-item">
-            <div class="profile-body-item-head">
-              <h3>出演作品</h3>
-            </div>
-            <div class="profile-body-item-body">
-              <ul v-for="appearance in profile.appearances" :key="appearance.title">
-                <li>
-                  <p>{{ appearance.title }}</p>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="profile-body-item">
-            <div class="profile-body-item-head">
-              <h3>資格・特技</h3>
-            </div>
-            <div class="profile-body-item-body">
-              <ul v-for="certification in profile.certifications" :key="certification.title">
-                <li>
-                  <p>{{ certification.title }}</p>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="profile-body-item">
-            <div class="profile-body-item-head">
-              <h3>好きな映画や演劇</h3>
-            </div>
-            <div class="profile-body-item-body">
-              <ul v-for="favorite in profile.favorites" :key="favorite.title">
-                <li>
-                  <p>{{ favorite.title }}</p>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-        </div>
-
-
-      </div>
-    </div>
+        <div v-else class="pageloader"><span class="title">Pageloader</span></div>
+      </transition>
+    </section>
   </div>
 </template>
 
@@ -120,90 +78,39 @@ import firebase from 'firebase'
 import { mapGetters, mapState } from 'vuex'
 import Status from '~/components/StatusCard'
 import Walkthrough from '~/components/Walkthrough'
+import Breadcrumbs from '~/components/Breadcrumbs'
+import ProfileEditModal from '~/components/ProfileEditModal'
 
 export default {
   components: {
     Walkthrough,
+    Breadcrumbs,
+    ProfileEditModal
   },
   data() {
     return {
-      uploadedImage: null,
       isNew: false,
-      isEditProfile: false,
+      isProfileEdit: false,
+      isShow: false,
+      isSelf: false,
       profile: {
         userName: '',
-        birthPlace: '出身地',
-        livingPlace: '現在住んでいる地域',
-        careers: [
-          {
-            title: '経歴のタイトル１',
-            body: '経歴の内容'
-          },
-          {
-            title: '経歴のタイトル２',
-            body: '経歴の内容'
-          },
-          {
-            title: '経歴のタイトル３',
-            body: '経歴の内容'
-          }
-        ],
-        appearances: [
-          {
-            title: '出演作１',
-            role: '役'
-          },
-          {
-            title: '出演作２',
-            role: '役'
-          },
-          {
-            title: '出演作３',
-            role: '役'
-          },
-          {
-            title: '出演作４',
-            role: '役'
-          }
-        ],
-        certifications: [
-          {
-            title: '資格名１',
-            acquisitionDate: '1993/12/31'
-          },
-        ],
-        favorites: [
-          {
-            title: 'ダイハード１'
-          },
-          {
-            title: 'ダイハード２'
-          },
-          {
-            title: 'ダイハード３'
-          },
-        ]
+        birthPlace: '',
+        livingPlace: '',
+        careers: [],
+        appearances: [],
+        certifications: [],
+        favorites: []
       }
     }
   },
   methods: {
-    onFileChange(e) {
-      const files = e.target.files;
-      if(files.length > 0) {
-        const file = files[0];
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          this.uploadedImage = e.target.result;
-        };
-        reader.readAsDataURL(file);
-      }
+    openEditModal() {
+      this.isProfileEdit = true
     },
-    resetFile() {
-      const input = this.$refs.file
-      input.type = 'text'
-      input.type = 'file'
-      this.uploadedImage = ''
-    },
+    closeEditModal() {
+      this.isProfileEdit = false
+    }
   },
   computed: {
     ...mapState(['user']),
@@ -214,22 +121,55 @@ export default {
     if (this.$route.query.new === 'true') {
       this.isNew = true
     }
-
     return firebase.database().ref('/users/' + this.$route.query.id).once('value').then((snapshot) => {
-      const user = snapshot.val()
-      if (user) {
-        this.profile.userName = user.userName
+      if (snapshot.val()) {
+        this.profile = snapshot.val()
+        this.isShow = true
       }
-      this.profile = (snapshot.val() && snapshot.val());
     });
   },
   mounted() {
     setTimeout(() => {
-      console.log(this.user) // mapStateのuser
+      if (this.$route.query.id === this.user.uid) {
+        this.isSelf = true
+      }
     })
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.profile {
+  padding: 20px;
+
+  h1 {
+    font-size: 24px;
+    font-weight: bold;
+  }
+}
+
+.image {
+  height: 300px;
+  width: 100%;
+
+  img {
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+  }
+}
+
+.profile-item {
+  padding: 10px 0;
+  text-align: left;
+
+  h2 {
+    font-size: 18px;
+    font-weight: bold;
+  }
+}
+
+.profile-button {
+  
+}
 </style>

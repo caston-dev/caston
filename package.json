@@ -19,6 +19,7 @@
     "@nuxtjs/font-awesome": "^1.0.4",
     "buefy": "^0.7.10",
     "bulma": "^0.7.5",
+    "bulma-extensions": "^6.2.7",
     "firebase": "^6.2.0",
     "font-awesome": "^4.7.0",
     "nuxt": "^2.0.0",

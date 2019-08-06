@@ -1,5 +1,5 @@
 <template>
-  <section v-show="isOpen">
+  <section v-show="isOpen" class="is-fullhd">
     <b-modal :active.sync="isOpen" has-modal-card>
       <form action="">
         <div class="modal-card" style="width: auto">

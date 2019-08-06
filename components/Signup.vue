@@ -1,7 +1,7 @@
 <template>
   <section>
     <b-modal :active.sync="isOpen" has-modal-card :can-cancel="false" full-screen>
-      <div class="modal-card" style="width: 100%;">
+      <div class="modal-card">
         <header class="modal-card-head">
           <p class="modal-card-title">新規登録</p>
         </header>

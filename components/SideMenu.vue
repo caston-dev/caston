@@ -1,38 +1,32 @@
 <template>
   <aside v-show="isOpen" class="menu column is-fullheight section">
-    <p class="menu-label">
-      メニュー
-    </p>
     <ul class="menu-list">
       <li>
-        <a href="/">
-          <span class="icon"><i class="fa fa-home"></i></span> トップ
+        <a href="/" class="has-text-white">
+          <span class="icon"><i class="fa fa-home"></i></span> ホーム
         </a>
       </li>
       <li>
-        <a href="/about">
+        <a href="/about" class="has-text-white">
           <span class="icon"><i class="fa fa-info"></i></span> CASTONとは？
         </a>
       </li>
     </ul>
-    <p class="menu-label">
-      CASTONへようこそ
-    </p>
     <ul class="menu-list" v-if="!isAuthenticated">
       <li>
-        <a @click="$parent.openSignupModal()" class="is-active">
+        <a @click="$parent.openSignupModal()" class="has-text-white">
           <span class="icon"><i class="fa fa-info"></i></span> 新規登録
         </a>
       </li>
       <li>
-        <a @click="$parent.openSignupModal()">
+        <a @click="$parent.openSignupModal()" class="has-text-white">
           <span class="icon"><i class="fa fa-info"></i></span> ログイン
         </a>
       </li>
     </ul>
     <ul class="menu-list" v-else>
       <li>
-        <a @click="$parent.openLogoutModal()">
+        <a @click="$parent.openLogoutModal()" class="has-text-white">
           <span class="icon"><i class="fa fa-info"></i></span> ログアウト
         </a>
       </li>
