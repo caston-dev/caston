@@ -2,8 +2,8 @@
     <div class="container is-fluid">
         <b-modal :active.sync="isActive" has-modal-card full-screen :can-cancel="false">
             <div class="modal-card" style="max-width: 400px; margin: 0 auto;">
-                <header class="modal-card-head">
-                    <p class="modal-card-title">プロフィール編集</p>
+                <header class="modal-card-head has-background-primary">
+                    <p class="modal-card-title has-text-white is-size-5">プロフィール編集</p>
                 </header>
                 <section class="modal-card-body">
                     <b-field label="プロフィール画像" :label-position="labelPosition">
@@ -25,71 +25,34 @@
                         <b-input v-model="profileObject.livingPlace">
                         </b-input>
                     </b-field>
-                    <b-field 
-                    grouped
+
+                    <!-- <b-field
+                    grouped 
                     label="経歴" 
+                    style="display: block;"
                     :label-position="labelPosition" 
-                    style="flex-direction: column;"
                     >
-                        <b-input
+                        <b-field                         
                         v-for="career in profileObject.careers" 
                         :key="career.title"
-                        v-model="career.title">
-                        </b-input>
+                        >
+                            <b-input v-model="career.title"></b-input>
+                        </b-field>
                         <div class="buttons">
-                            <a class="button is-light is-small" @click.prevent="addItem('careers')">追加する</a>
+                            <a class="button is-light" @click.prevent="addItem('careers')">追加する</a>
                         </div>
-                    </b-field>
-                    <b-field 
-                    grouped
-                    label="出演作品" 
-                    :label-position="labelPosition" 
-                    style="flex-direction: column;"
-                    >
-                        <b-input
-                        v-for="appearance in profileObject.appearances" 
-                        :key="appearance.title"
-                        v-model="appearances.title">
-                        </b-input>
-                        <div class="buttons">
-                            <a class="button is-light is-small" @click.prevent="addItem('appearances')">追加する</a>
-                        </div>
-                    </b-field>
-                    <b-field 
-                    grouped
-                    label="取得資格" 
-                    :label-position="labelPosition" 
-                    style="flex-direction: column;"
-                    >
-                        <b-input
-                        v-for="certification in profileObject.certifications" 
-                        :key="certification.title"
-                        v-model="certifications.title">
-                        </b-input>
-                        <div class="buttons">
-                            <a class="button is-light is-small" @click.prevent="addItem('certifications')">追加する</a>
-                        </div>
-                    </b-field>
-                    <b-field 
-                    grouped
-                    label="お気に入りの作品" 
-                    :label-position="labelPosition" 
-                    style="flex-direction: column;"
-                    >
-                        <b-input
-                        v-for="favorite in profileObject.favorites" 
-                        :key="favorite.title"
-                        v-model="favorites.title">
-                        </b-input>
-                        <div class="buttons">
-                            <a class="button is-light is-small" @click.prevent="addItem('favorites')">追加する</a>
-                        </div>
-                    </b-field>
+                    </b-field> -->
                 </section>
                 <footer class="modal-card-foot">
-                    <div class="buttons is-centered">
-                        <button class="button" type="button" @click="$parent.closeEditModal()">キャンセル</button>
-                        <button class="button is-info">保存</button>
+                    <div class="buttons is-centered" style="width: 100%;">
+                        <a class="button" type="button" @click="$parent.closeEditModal()">キャンセル</a>
+                        <a 
+                        class="button is-info" 
+                        @click.prevent="updateProfle()"
+                        v-bind:class="{ 'is-loading': isClicked }"
+                        >
+                            <span>保存する</span>
+                        </a>
                     </div>
                 </footer>
             </div>
@@ -97,6 +60,9 @@
     </div>
 </template>  
 <script>
+import firebase from 'firebase'
+import { mapGetters, mapState } from 'vuex'
+
 export default {
     props: {
         isActive: {
@@ -112,43 +78,48 @@ export default {
         return {
             uploadedImage: null,
             labelPosition: '',
-            profileObject: Object
+            profileObject: Object,
+            updated: false,
+            isClicked: false
         }
     },
     methods: {
         onFileChange(e) {
-            let files = e.target.files || e.dataTransfer.files;
-            this.createImage(files[0]);
+            let files = e.target.files || e.dataTransfer.files
+            this.createImage(files[0])
         },
         createImage(file) {
-            let reader = new FileReader();
+            let reader = new FileReader()
             reader.onload = (e) => {
-                this.uploadedImage = e.target.result;
+                this.uploadedImage = e.target.result
             };
-            reader.readAsDataURL(file);
+            reader.readAsDataURL(file)
         },
         addItem(key) {
-            switch(key) {
-                case 'careers':
-                    break;
-                case 'appearances':
-                    
-                    break;
-                case 'certifications':
-                    
-                    
-                    break;
-                case 'favorites':
-                    
-                    break;
-                default:
-                    break;
-            }
+            
+        },
+        updateProfle() {
+            this.isClicked = true
+            console.log(this.user)
+            var userRef = firebase.database().ref('/users/' + this.$route.query.id)
+            userRef.update(this.profileObject, err => {
+                if (err) {
+                // The write failed...
+                } else {
+                    this.isClicked = false
+                    this.$parent.closeEditModal()
+                }
+            });
         }
     },
+    computed: {
+        ...mapState(['user']),
+    },
     updated() {
-        this.profileObject = this.profile
-        console.log(this.profileObject)
+        if (!this.updated) {
+            this.updated = true
+            this.profileObject = this.profile
+        }
     }
 }
 </script>
