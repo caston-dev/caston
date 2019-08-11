@@ -1,0 +1,38 @@
+.signup-modal {
+  margin: 0 auto;
+  max-width: 400px;
+}
+
+%social-signup-button-figure {
+  border-radius: 1.4em;
+  color: $white-color;
+  margin: 10px auto;
+  padding: 12px 8px;
+  text-align: center;
+  width: 80%;
+}
+
+.social-button {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  #twitter {
+    @extend %social-signup-button-figure;
+
+    background-color: $twitter-color;
+  }
+  
+  #facebook {
+    @extend %social-signup-button-figure;
+
+    background-color: $facebook-color;
+  }
+
+  #google {
+    @extend %social-signup-button-figure;
+
+    background-color: $google-color;
+  }
+}

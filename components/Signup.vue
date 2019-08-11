@@ -1,64 +1,44 @@
 <template>
-  <section>
-    <b-modal :active.sync="isOpen" has-modal-card>
-      <div class="modal-card">
-        <header class="modal-card-head">
-          <p class="modal-card-title">新規登録</p>
-        </header>
-        <section class="modal-card-body">
-          <slot name="body">
-            <div class="social-button">
-              <a
-              id="facebook"
-              @click.prevent="signup('facebook')"
-              >
-                <span>Facebookで登録する</span>
-              </a>
-              <a
-              id="twitter"
-              @click.prevent="signup('twitter')"
-              >
-                <span>Twitterで登録する</span>
-              </a>
-              <a
-              id="google"
-              @click.prevent="signup('google')"
-              >
-                <span>Googleで登録する</span>
-              </a>
-            </div>
-          </slot>
-        </section>
-        <footer class="modal-card-foot is-centered">
-          <button class="button" type="button" @click="$parent.closeSignupModal()">キャンセル</button>
-          <button class="button is-primary">登録する</button>
-        </footer>
-      </div>
-    </b-modal>
+  <section class="section">
+    <div class="modal-card signup-modal">
+      <section class="modal-card-body">
+        <slot name="body">
+          <div class="social-button">
+            <a id="facebook" @click.prevent="signup('facebook')">
+              <span>Facebookで{{ type }}</span>
+            </a>
+            <a id="twitter" @click.prevent="signup('twitter')">
+              <span>Twitterで{{ type }}</span>
+            </a>
+            <a id="google" @click.prevent="signup('google')">
+              <span>Googleで{{ type }}</span>
+            </a>
+          </div>
+        </slot>
+      </section>
+    </div>
   </section>
 </template>
+
 <script>
 import firebase from '~/plugins/firebase'
 import { mapActions, mapState, mapGetters } from 'vuex'
 
 export default {
   props: {
-    'isSignup': {
+    type: {
+      type: String,
       required: true
     }
   },
-  data() {
-    return {
-      isOpen: false
-    }
-  },
+  data() { return{} },
   methods: {
     ...mapActions(['setUser']),
     signup(service) {
       let provider = this.choseProvider(service)
       firebase.auth().signInWithPopup(provider).then((result) => {
-        this.$parent.closeSignupModal()
-        this.$parent.closeSideMenu()
+        this.$parent.close()
+        this.$parent.isSideMenu = false
         var user = result.user
         var isNewUser = result.additionalUserInfo.isNewUser
         if (isNewUser) {
@@ -110,43 +90,16 @@ export default {
         },
       })
     },
-    closeModal() {
-      this.$emit('close-signup-modal')
-    }
   },
   computed: {
     ...mapState(['user']),
     ...mapGetters(['isAuthenticated'])
   },
-  created() {
-    this.isOpen = this.isSignup
-  },
+  created() {},
   mounted() {
     firebase.auth().onAuthStateChanged((user) => {
       this.setUser(user)
     })
   },
-  beforeDestroy() {
-    $parent.closeSignupModal()
-  },
-  watch: {
-    isSignup: {
-      immediate: true,
-      handler() {
-        this.isOpen = this.isSignup
-      }
-    }
-  }
 }
 </script>
-<style lang="scss" scoped>
-.modal-card-body {
-  
-  div {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-}
-</style>

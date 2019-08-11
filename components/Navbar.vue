@@ -1,61 +1,53 @@
 <template>
-    <transition>
-        <nav 
-        class="navbar has-background-primary" 
-        role="navigation" 
-        aria-label="main navigation"
-        >
-          <signup :is-signup="isSignup" />
-          <logout :is-logout="isLogout" />
-          <div class="navbar-brand">
-            <!-- <a class="navbar-item" href="/">
-              <img src="~static/images/logo-icon.png" alt="CASTON"/>
-            </a> -->
-            <a
-            role="button"
-            class="navbar-burger burger has-text-white"
-            aria-label="menu"
-            aria-expanded="false"
-            data-target="navbar"
-            @click="isSideMenu = !isSideMenu"
-            >
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
+  <nav class="navbar has-background-primary" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <!-- <a class="navbar-item" href="/">
+        <img src="~static/images/logo-icon.png" alt="CASTON"/>
+      </a> -->
+      <a
+      role="button"
+      class="navbar-burger burger has-text-white"
+      aria-label="menu"
+      aria-expanded="false"
+      data-target="navbar"
+      @click="isSideMenu = !isSideMenu"
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div id="navbar" class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item has-text-white">
+          ホーム
+        </a>
+        <a class="navbar-item has-text-white">
+          CASTONとは？
+        </a>
+      </div>
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="buttons" v-if="!isAuthenticated">
+            <a class="button is-primary is-inverted" @click.prevent="openSignupModal('登録する')">
+              <strong>新規登録</strong>
+            </a>
+            <a class="button is-primary is-inverted is-outlined" @click.prevent="openSignupModal('ログイン')">
+              ログイン
             </a>
           </div>
-          <div id="navbar" class="navbar-menu">
-            <div class="navbar-start">
-              <a class="navbar-item has-text-white">
-                ホーム
-              </a>
-              <a class="navbar-item has-text-white">
-                CASTONとは？
-              </a>
-            </div>
-            <div class="navbar-end">
-              <div class="navbar-item">
-                <div class="buttons" v-if="!isAuthenticated">
-                  <a class="button is-primary is-inverted" @click.prevent="openSignupModal">
-                    <strong>新規登録</strong>
-                  </a>
-                  <a class="button is-primary is-inverted is-outlined" @click.prevent="openSignupModal">
-                    ログイン
-                  </a>
-                </div>
-                <div class="buttons" v-if="isAuthenticated">
-                  <a class="button is-primary is-inverted is-outlined" @click.prevent="openLogoutModal">
-                    ログアウト
-                  </a>
-                </div>
-              </div>
-            </div>
+          <div class="buttons" v-if="isAuthenticated">
+            <a class="button is-primary is-inverted is-outlined" @click.prevent="openLogoutModal">
+              ログアウト
+            </a>
           </div>
-          <transition name="menu">
-            <side-menu :is-side-menu="isSideMenu" />
-          </transition>
-        </nav>
+        </div>
+      </div>
+    </div>
+    <transition name="menu">
+      <side-menu :is-side-menu="isSideMenu" />
     </transition>
+  </nav>
 </template>
 
 <script>
@@ -73,9 +65,6 @@ export default {
   data() {
     return {
       isMobile: false,
-      isSignup: false,
-      isLogout: false,
-      isLoggedIn: false,
       isSideMenu: false
     }
   },
@@ -85,38 +74,48 @@ export default {
     SideMenu
   },
   methods: {
-    openSignupModal() {
-      this.isSignup = true
+    openSignupModal(type) {
+      this.$modal.open({
+        parent: this,
+        component: Signup,
+        hasModalCard: true,
+        events: {
+            'success-response': value => {
+            console.log(value)
+          }
+        },
+        props: {
+          type: type
+        }
+      });
     },
     closeSignupModal() {
-      this.isSignup = false
+      this.$modal.close({
+        parent: this,
+        component: Signup
+      })
     },
     openLogoutModal() {
-      this.isLogout = true
+      this.$modal.open({
+        parent : this,
+        component: Logout,
+        hasModalCard: true,
+        events: {
+            'success-response': value => {
+            console.log(value)
+          }
+        }
+      });
     },
     closeLogoutModal() {
-      this.isLogout = false
+      this.$modal.close({
+        parent: this,
+        component: Logout
+      })
     },
-    openSideMenu() {
-      this.isSideMenu = true
-    },
-    closeSideMenu() {
-      this.isSideMenu = false
-    }
   },
   computed: {
     ...mapGetters(['isAuthenticated'])
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.menu-enter-active, .menu-leave-active {
-  transform: translate(0px, 0px);
-  transition: transform 225ms cubic-bezier(0, 0, 0.2, 1) 0ms;
-}
-
-.menu-enter, .menu-leave-to {
-  transform: translateX(-100vw) translateX(0px);
-}
-</style>

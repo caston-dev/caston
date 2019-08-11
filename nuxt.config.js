@@ -39,7 +39,9 @@ module.exports = {
   ],
   styleResources: {
     scss: [
-      'assets/scss/app.scss'
+      'assets/scss/app.scss',
+      'assets/scss/foundation/_variable.scss',
+      'assets/scss/foundation/_mixin.scss'
     ]
   },
   webfontloader: {

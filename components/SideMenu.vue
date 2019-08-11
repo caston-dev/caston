@@ -14,12 +14,12 @@
     </ul>
     <ul class="menu-list" v-if="!isAuthenticated">
       <li>
-        <a @click="$parent.openSignupModal()" class="has-text-white">
+        <a @click="$parent.openSignupModal('登録する')" class="has-text-white">
           <span class="icon"><i class="fa fa-info"></i></span> 新規登録
         </a>
       </li>
       <li>
-        <a @click="$parent.openSignupModal()" class="has-text-white">
+        <a @click="$parent.openSignupModal('ログイン')" class="has-text-white">
           <span class="icon"><i class="fa fa-info"></i></span> ログイン
         </a>
       </li>
@@ -58,6 +58,6 @@ export default {
         this.isOpen = this.isSideMenu
       }
     }
-  }
+  },
 }
 </script>
