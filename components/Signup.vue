@@ -1,6 +1,6 @@
 <template>
   <section>
-    <b-modal :active.sync="isOpen" has-modal-card :can-cancel="false" full-screen>
+    <b-modal :active.sync="isOpen" has-modal-card>
       <div class="modal-card">
         <header class="modal-card-head">
           <p class="modal-card-title">新規登録</p>
@@ -139,3 +139,14 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+.modal-card-body {
+  
+  div {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+</style>

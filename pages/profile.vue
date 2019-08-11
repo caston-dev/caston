@@ -1,5 +1,5 @@
 <template>
-  <div style="height: 100vh;">
+  <div>
     <div class="container is-fullhd" v-if="isShow">
       <profile-edit-modal :is-active="isProfileEdit" :profile="profile" />
       <breadcrumbs />

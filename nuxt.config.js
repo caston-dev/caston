@@ -14,17 +14,8 @@ module.exports = {
       { rel: 'stylesheet', href: '//cdn.materialdesignicons.com/2.0.46/css/materialdesignicons.min.css' }
     ]
   },
-  /*
-  ** Customize the progress bar color
-  */
   loading: { color: '#3B8070' },
-  /*
-  ** Build configuration
-  */
   build: {
-    /*
-    ** Run ESLint on save
-    */
     extend (config, { isDev, isClient }) {
       if (isDev && isClient) {
         config.module.rules.push({
@@ -48,8 +39,7 @@ module.exports = {
   ],
   styleResources: {
     scss: [
-      'assets/scss/_variable.scss',
-      'assets/scss/_mixin.scss'
+      'assets/scss/app.scss'
     ]
   },
   webfontloader: {
@@ -63,7 +53,7 @@ module.exports = {
     '~/plugins/buefy'
   ],
   css: [
-    { src: '~assets/scss/_app.scss', lang: 'sass' },
+    { src: '~assets/scss/app.scss', lang: 'sass' },
     { src: 'font-awesome/scss/font-awesome.scss', lang: 'scss' },
   ],
 }
