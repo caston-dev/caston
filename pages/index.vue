@@ -6,10 +6,10 @@
           <h1 class="title">
             CASTON
           </h1>
-          <p class="subtitle">
+          <!-- <p class="subtitle">
             作りたい/撮りたいテーマがあるけど出演者が見つからずに妥協したりあきらめたことはないですか？<br />
             <strong>CASTON</strong>はそんな悩みを解消するクリエイターと俳優のマッチングサービスです。
-          </p>
+          </p> -->
         </div>
       </div>
     </section>

@@ -1,7 +1,6 @@
 <template>
   <div>
     <div class="container is-fullhd" v-if="isShow">
-      <profile-edit-modal :is-active="isProfileEdit" :profile="profile" />
       <breadcrumbs />
       <section class="section">
         <transition name="fade">
@@ -61,8 +60,8 @@
               <div class="profile-item">
                 <h2>お気に入りの作品</h2>
                 <ul>
-                  <li v-for="career in this.profile.careers" :key="career.title">
-                    {{ career.title }}
+                  <li v-for="favorite in this.profile.favorites" :key="favorite.title">
+                    {{ favorite.title }}
                   </li>
                 </ul>
               </div>
@@ -83,6 +82,7 @@ import Walkthrough from '~/components/Walkthrough'
 import Breadcrumbs from '~/components/Breadcrumbs'
 import ProfileEditModal from '~/components/ProfileEditModal'
 import PageLoader from '~/components/PageLoader'
+import ProfileEditModalVue from '../components/ProfileEditModal.vue';
 
 export default {
   components: {
@@ -110,10 +110,14 @@ export default {
   },
   methods: {
     openEditModal() {
-      this.isProfileEdit = true
-    },
-    closeEditModal() {
-      this.isProfileEdit = false
+      this.$modal.open({
+        parent : this,
+        component: ProfileEditModal,
+        hasModalCard: true,
+        props: {
+          profile: this.profile
+        }
+      });
     }
   },
   computed: {
@@ -146,7 +150,7 @@ export default {
   padding: 20px;
 
   h1 {
-    font-size: 24px;
+    font-size: 32px;
     font-weight: bold;
   }
 }
@@ -163,12 +167,17 @@ export default {
 }
 
 .profile-item {
-  padding: 10px 0;
+  margin: 24px 0;
   text-align: left;
 
   h2 {
-    font-size: 18px;
+    font-size: 22px;
     font-weight: bold;
+    margin: 0 0 10px;
+  }
+
+  p {
+    font-size: 18px;
   }
 }
 
