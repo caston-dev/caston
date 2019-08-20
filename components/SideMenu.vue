@@ -14,7 +14,7 @@
     </ul>
     <ul class="menu-list" v-if="!isAuthenticated">
       <li>
-        <a @click="$parent.openSignupModal('登録する')" class="has-text-white">
+        <a @click="$parent.openSignupModal('登録')" class="has-text-white">
           <span class="icon"><i class="fa fa-info"></i></span> 新規登録
         </a>
       </li>
@@ -25,6 +25,11 @@
       </li>
     </ul>
     <ul class="menu-list" v-else>
+      <li>
+        <nuxt-link :to="'/profile?id=' + user.uid" class="has-text-white">
+          <span class="icon"><i class="fa fa-info"></i></span> プロフィール
+        </nuxt-link>
+      </li>
       <li>
         <a @click="$parent.openLogoutModal()" class="has-text-white">
           <span class="icon"><i class="fa fa-info"></i></span> ログアウト
@@ -49,6 +54,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(['user']),
     ...mapGetters(['isAuthenticated'])
   },
   watch: {

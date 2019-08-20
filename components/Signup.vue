@@ -1,6 +1,9 @@
 <template>
   <section class="section">
     <div class="modal-card signup-modal">
+      <header class="modal-card-head">
+        <p class="modal-card-title">{{ type }}</p>
+      </header>
       <section class="modal-card-body">
         <slot name="body">
           <div class="social-button">

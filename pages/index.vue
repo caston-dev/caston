@@ -1,50 +1,48 @@
 <template>
-  <div>
-    <section class="hero is-medium is-primary is-fullheight-with-navbar">
+  <section class="hero is-link is-primary is-fullheight-with-navbar">
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <h1 class="title">
+          CASTON
+        </h1>
+      </div>
+    </div>
+  </section>
+    <!-- <section class="hero is-medium is-primary is-fullheight-with-navbar">
       <div class="hero-body">
         <div class="container has-text-centered">
           <h1 class="title">
             CASTON
           </h1>
-          <!-- <p class="subtitle">
-            作りたい/撮りたいテーマがあるけど出演者が見つからずに妥協したりあきらめたことはないですか？<br />
-            <strong>CASTON</strong>はそんな悩みを解消するクリエイターと俳優のマッチングサービスです。
-          </p> -->
         </div>
       </div>
-    </section>
-    <section class="section">
+    </section> -->
+    <!-- <section class="section">
       <div class="tile is-ancestor">
         <div class="tile is-vertical is-8">
           <div class="tile">
             <div class="tile is-parent is-vertical">
               <article class="tile is-child box">
-                <!-- Put any content you want -->
               </article>
               <article class="tile is-child box">
-                <!-- Put any content you want -->
               </article>
             </div>
             <div class="tile is-parent">
               <article class="tile is-child box">
-                <!-- Put any content you want -->
               </article>
             </div>
           </div>
           <div class="tile is-parent">
             <article class="tile is-child box">
-              <!-- Put any content you want -->
             </article>
           </div>
         </div>
         <div class="tile is-parent">
           <article class="tile is-child box">
-            <!-- Put any content you want -->
           </article>
         </div>
       </div>
-    </section>
-  </div>
+    </section> -->
 </template>
 
 <script>

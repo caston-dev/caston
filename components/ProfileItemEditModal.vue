@@ -6,22 +6,22 @@
         <div class="modal-card" style="max-height: 80vh; max-width: 400px; margin: 0 auto;">
             <div class="modal-card-body">
                 <div v-if="target === 'career'">
-                    <b-field label="Name">
-                        <b-input v-model="target"></b-input>
+                    <b-field label="経歴のタイトル">
+                        <b-input v-model="targetItem"></b-input>
                     </b-field>
                 </div>
                 <div v-else-if="target === 'appearance'">
-                    <b-field label="Name">
+                    <b-field label="出演作品のタイトル">
                         <b-input v-model="targetItem"></b-input>
                     </b-field>
                 </div>
                 <div v-else-if="target === 'certification'">
-                    <b-field label="Name">
+                    <b-field label="資格名">
                         <b-input v-model="targetItem"></b-input>
                     </b-field>
                 </div>
                 <div v-else-if="target === 'favorite'">
-                    <b-field label="Name">
+                    <b-field label="お気に入り作品名">
                         <b-input v-model="targetItem"></b-input>
                     </b-field>
                 </div>
@@ -58,26 +58,26 @@ export default {
     },
     methods: {
         updateTarget() {
-
+            
         }
     },
     computed: {
         targetName() {
-        switch(this.target) {
-            case 'career':
-                return '経歴'
-                break;
-            case 'appearance':
-                return '過去の出演作品'
-                break;
-            case 'certification':
-                return '取得した資格'
-                break;
-            case 'favorite':
-                return 'お気に入りの作品'
-                break;
-            default:
-                // code block
+            switch(this.target) {
+                case 'career':
+                    return '経歴'
+                    break;
+                case 'appearance':
+                    return '過去の出演作品'
+                    break;
+                case 'certification':
+                    return '取得した資格'
+                    break;
+                case 'favorite':
+                    return 'お気に入りの作品'
+                    break;
+                default:
+                    break;
             }
         }
     }

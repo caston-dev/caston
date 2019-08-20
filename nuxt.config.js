@@ -9,6 +9,9 @@ module.exports = {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: 'Nuxt.js project' }
     ],
+    bodyAttrs: {
+      class: 'has-navbar-fixed-top'
+    },
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/images/favicon-100.png' },
       { rel: 'stylesheet', href: '//cdn.materialdesignicons.com/2.0.46/css/materialdesignicons.min.css' }
@@ -35,7 +38,8 @@ module.exports = {
   modules: [
     '@nuxtjs/style-resources',
     'nuxt-webfontloader',
-    'nuxt-fontawesome'
+    'nuxt-fontawesome',
+    ['nuxt-buefy', { css: false }],
   ],
   styleResources: {
     scss: [

@@ -29,6 +29,8 @@ $fullhd: 1080px;
 $link: $primary;
 $link-invert: $primary-invert;
 $link-focus-border: $primary;
+$link-hover: $white;
+$link-hover-border: transparent;
 
 // Import Bulma and Buefy styles
 @import '~bulma';

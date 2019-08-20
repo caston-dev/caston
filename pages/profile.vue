@@ -110,13 +110,15 @@ export default {
   },
   methods: {
     openEditModal() {
-      this.$modal.open({
+      this.$buefy.modal.open({
         parent : this,
         component: ProfileEditModal,
         hasModalCard: true,
+        fullScreen: true,
+        canCancel: false,
         props: {
           profile: this.profile
-        }
+        },
       });
     }
   },

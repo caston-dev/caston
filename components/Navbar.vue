@@ -1,9 +1,9 @@
 <template>
-  <nav class="navbar has-background-primary" role="navigation" aria-label="main navigation">
+  <!-- <nav class="navbar has-background-primary" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-      <!-- <a class="navbar-item" href="/">
+      <a class="navbar-item" href="/">
         <img src="~static/images/logo-icon.png" alt="CASTON"/>
-      </a> -->
+      </a>
       <a
       role="button"
       class="navbar-burger burger has-text-white"
@@ -29,7 +29,7 @@
       <div class="navbar-end">
         <div class="navbar-item">
           <div class="buttons" v-if="!isAuthenticated">
-            <a class="button is-primary is-inverted" @click.prevent="openSignupModal('登録する')">
+            <a class="button is-primary is-inverted" @click.prevent="openSignupModal('登録')">
               <strong>新規登録</strong>
             </a>
             <a class="button is-primary is-inverted is-outlined" @click.prevent="openSignupModal('ログイン')">
@@ -37,6 +37,9 @@
             </a>
           </div>
           <div class="buttons" v-if="isAuthenticated">
+            <nuxt-link :to="'/profile?id=' + user.uid">
+              プロフィール
+            </nuxt-link>
             <a class="button is-primary is-inverted is-outlined" @click.prevent="openLogoutModal">
               ログアウト
             </a>
@@ -47,7 +50,43 @@
     <transition name="menu">
       <side-menu :is-side-menu="isSideMenu" />
     </transition>
-  </nav>
+  </nav> -->
+  <b-navbar fixed-top class="">
+        <template slot="brand">
+            <b-navbar-item href="/">
+                <img src="images/logo-text-and-image.png" alt="CASTON">
+            </b-navbar-item>
+        </template>
+        <template slot="start">
+            <b-navbar-item href="#">
+                <nuxt-link to="" class="has-text-dark">
+                    CASTONとは？
+                </nuxt-link>
+            </b-navbar-item>
+            <b-navbar-item href="#">
+                <nuxt-link to="" class="has-text-dark">
+                    利用規約
+                </nuxt-link>
+            </b-navbar-item>
+        </template>
+        <template slot="end">
+            <b-navbar-item href="#">
+                <nuxt-link to="" class="has-text-dark">
+                    プロフィール
+                </nuxt-link>
+            </b-navbar-item>
+            <b-navbar-item tag="div">
+                <div class="buttons">
+                    <a class="button is-primary">
+                        <strong>新規登録</strong>
+                    </a>
+                    <a class="button is-light">
+                        ログイン
+                    </a>
+                </div>
+            </b-navbar-item>
+        </template>
+  </b-navbar>
 </template>
 
 <script>
@@ -79,11 +118,6 @@ export default {
         parent: this,
         component: Signup,
         hasModalCard: true,
-        events: {
-            'success-response': value => {
-            console.log(value)
-          }
-        },
         props: {
           type: type
         }
@@ -115,6 +149,7 @@ export default {
     },
   },
   computed: {
+    ...mapState(['user']),
     ...mapGetters(['isAuthenticated'])
   },
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="has-background-light">
     <navbar/>
-    <nuxt/>
+    <nuxt />
     <Footer />
   </div>
 </template>
